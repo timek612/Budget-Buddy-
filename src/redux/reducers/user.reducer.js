@@ -1,5 +1,4 @@
 
-
 const userReducer = (state = {}, action) => {// this is only one user at a time
 
   
