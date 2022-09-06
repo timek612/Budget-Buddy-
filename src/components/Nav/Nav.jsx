@@ -28,7 +28,7 @@ function Nav() {
               New Expense
             </Link>
 
-            <Link className='navLink' to="/expenses">
+            <Link className='navLink' to="/individualExpenses">
               Expenses
             </Link>
 
