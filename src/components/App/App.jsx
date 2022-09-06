@@ -19,6 +19,10 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import NewExpense from '../NewExpense/NewExpense';
+import Expenses from '../Expenses/Expenses';
+import Chart from '../Chart/Chart';
+import EditProfile from '../EditProfile/EditProfile';
 
 import './App.css';
 
@@ -47,6 +51,22 @@ function App() {
           >
             <AboutPage />
           </Route>
+
+          <ProtectedRoute exact path="/newExpense">
+            <NewExpense />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/expenses">
+            <Expenses />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/chart">
+            <Chart />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/editProfile">
+            <EditProfile />
+          </ProtectedRoute>
 
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
