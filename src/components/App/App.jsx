@@ -20,9 +20,12 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import NewExpense from '../NewExpense/NewExpense';
-import Expenses from '../Expenses/Expenses';
+import IndividualExpenses from '../IndividualExpenses/IndividualExpenses';
 import Chart from '../Chart/Chart';
 import EditProfile from '../EditProfile/EditProfile';
+import ExpenseDetails from '../ExpenseDetails/ExpenseDetails';
+import EditExpense from '../EditExpense/EditExpense'
+import RecurringExpenses from '../RecurringExpenses/RecurringExpenses';
 
 import './App.css';
 
@@ -56,8 +59,8 @@ function App() {
             <NewExpense />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path="/expenses">
-            <Expenses />
+          <ProtectedRoute exact path="/individualExpenses">
+            <IndividualExpenses />
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/chart">
@@ -66,6 +69,18 @@ function App() {
 
           <ProtectedRoute exact path="/editProfile">
             <EditProfile />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/expenseDetails">
+            <ExpenseDetails />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/editExpense">
+            <EditExpense />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/recurringExpenses">
+            <RecurringExpenses />
           </ProtectedRoute>
 
           {/* For protected routes, the view could show one of several things on the same route.
