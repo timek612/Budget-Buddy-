@@ -26,6 +26,9 @@ import EditProfile from '../EditProfile/EditProfile';
 import ExpenseDetails from '../ExpenseDetails/ExpenseDetails';
 import EditExpense from '../EditExpense/EditExpense'
 import RecurringExpenses from '../RecurringExpenses/RecurringExpenses';
+import WelcomePage from '../WelcomePage/WelcomePage';
+import PersonalForm from '../PersonalForm/PersonalForm';
+import UserSubmissionPage from '../UserSubmissionPage/UserSubmissionPage';
 
 import './App.css';
 
@@ -81,6 +84,19 @@ function App() {
 
           <ProtectedRoute exact path="/recurringExpenses">
             <RecurringExpenses />
+          </ProtectedRoute>
+
+          {/* I want this to be protected but I can't push unless auth */}
+          <Route exact path="/welcomePage"> 
+            <WelcomePage />
+          </Route>
+
+          <ProtectedRoute exact path="/personalForm">
+            <PersonalForm />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/userSubmissionPage">
+            <UserSubmissionPage />
           </ProtectedRoute>
 
           {/* For protected routes, the view could show one of several things on the same route.

@@ -1,28 +1,29 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [age, setAge] = useState('');
+  
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const registerUser = (event) => {
     event.preventDefault();
 
     dispatch({
-      type: 'REGISTER',
+      type: 'LOGIN_CREDS',
       payload: {
         username: username,
         password: password,
-        firstName: firstName,
-        lastName: lastName,
-        age: age
+        // firstName: firstName,
+        // lastName: lastName,
+        // age: age
       },
     });
+    history.push('/welcomePage')
   }; // end registerUser
 
   return (
@@ -57,7 +58,7 @@ function RegisterForm() {
           />
         </label>
       </div>
-      <div>
+      {/* <div>
         <label htmlFor="firstName">
           First Name:
           <input
@@ -68,8 +69,8 @@ function RegisterForm() {
             onChange={(event) => setFirstName(event.target.value)}
           />
         </label>
-      </div>
-      <div>
+      </div> */}
+      {/* <div>
         <label htmlFor="lastName">
           Last Name:
           <input
@@ -80,8 +81,8 @@ function RegisterForm() {
             onChange={(event) => setLastName(event.target.value)}
           />
         </label>
-      </div>
-      <div>
+      </div> */}
+      {/* <div>
         <label htmlFor="age">
           Age:
           <input
@@ -92,7 +93,7 @@ function RegisterForm() {
             onChange={(event) => setAge(event.target.value)}
           />
         </label>
-      </div>
+      </div> */}
       <div>
         <input className="btn" type="submit" name="submit" value="Register" />
       </div>
