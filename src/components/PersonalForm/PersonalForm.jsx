@@ -50,7 +50,7 @@ function PersonalForm() {
     return (
         <>
 
-            <div>
+            <div className='personalDiv'>
                 <input type="text" placeholder="First name*"
                     value={firstName}
                     required

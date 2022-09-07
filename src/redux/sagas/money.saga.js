@@ -1,7 +1,7 @@
 import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
-function* moneyParameters (action) {
+function* moneyParameters (action) {// saga for the income post dispatch
     console.log(action);
 
     try {
