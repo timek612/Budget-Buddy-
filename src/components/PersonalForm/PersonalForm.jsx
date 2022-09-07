@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 function PersonalForm() {
-    const username = useSelector((store) => store.userData.registrationReducer)
+    const credentials = useSelector((store) => store.userData.registrationReducer)
     const userData = useSelector((store) => store.userData.userData)
 
     const [firstName, setFirstName] = useState('');
@@ -21,24 +21,33 @@ function PersonalForm() {
     const handleSubmit = (event) => {
         // event.preventDefault();
 
-
-        axios({
-            method: 'POST',
-            url: '/api/user/register',
-            data: {
-                user: username.username,
-                pass: username.password,
-                first: firstName,
-                last: lastName,
-                age: age
-            }
+        dispatch ({
+            type: 'REGISTER',
+            payload: ({
+                credentials,
+                firstName, 
+                lastName,
+                age
+            })
+            
         })
-            .then(response => {
-                console.log(response);
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        // axios({
+        //     method: 'POST',
+        //     url: '/api/user/register',
+        //     data: {
+        //         user: credentials.username,
+        //         pass: credentials.password,
+        //         first: firstName,
+        //         last: lastName,
+        //         age: age
+        //     }
+        // })
+        //     .then(response => {
+        //         console.log(response);
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //     })
 
         history.push('/userSubmissionPage')
     }

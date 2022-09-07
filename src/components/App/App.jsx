@@ -29,6 +29,7 @@ import RecurringExpenses from '../RecurringExpenses/RecurringExpenses';
 import WelcomePage from '../WelcomePage/WelcomePage';
 import PersonalForm from '../PersonalForm/PersonalForm';
 import UserSubmissionPage from '../UserSubmissionPage/UserSubmissionPage';
+import RecurringSetup from '../RecurringSetup/RecurringSetup';
 
 import './App.css';
 
@@ -97,6 +98,10 @@ function App() {
 
           <ProtectedRoute exact path="/userSubmissionPage">
             <UserSubmissionPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/recurringSetup">
+            <RecurringSetup />
           </ProtectedRoute>
 
           {/* For protected routes, the view could show one of several things on the same route.
