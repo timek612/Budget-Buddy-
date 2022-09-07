@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 const registrationReducer = (state = {}, action) => {
     switch (action.type) {
         case 'LOGIN_CREDS':
-            console.log(action.payload);
+            // console.log(action.payload);
             return action.payload;
         case 'SET_PERSON_INFO':
             return action.payload;

@@ -12,6 +12,8 @@ function PersonalForm() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [age, setAge] = useState('');
+    const [income, setIncome] = useState('');
+    const [savings, setSavings] = useState('');
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -27,27 +29,19 @@ function PersonalForm() {
                 credentials,
                 firstName, 
                 lastName,
-                age
+                age,
             })
             
         })
-        // axios({
-        //     method: 'POST',
-        //     url: '/api/user/register',
-        //     data: {
-        //         user: credentials.username,
-        //         pass: credentials.password,
-        //         first: firstName,
-        //         last: lastName,
-        //         age: age
-        //     }
-        // })
-        //     .then(response => {
-        //         console.log(response);
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-        //     })
+        
+        dispatch ({
+            type: 'MONEY_PARAMETERS',
+            payload: ({
+                income, 
+                savings
+            })
+        })
+      
 
         history.push('/userSubmissionPage')
     }
@@ -73,10 +67,26 @@ function PersonalForm() {
 
                 <br />
 
-                <input type="text" placeholder="Age*"
+                <input type="number" placeholder="Age*"
                     value={age}
                     required
                     onChange={(event) => setAge(event.target.value)}
+                />
+
+                <br />
+
+                <input type="number" placeholder="Annual Income*"
+                    value={income}
+                    required
+                    onChange={(event) => setIncome(event.target.value)}
+                />
+
+                <br />
+
+                <input type="number" placeholder="Percentage to save*"
+                    value={savings}
+                    required
+                    onChange={(event) => setSavings(event.target.value)}
                 />
 
                 <br />
