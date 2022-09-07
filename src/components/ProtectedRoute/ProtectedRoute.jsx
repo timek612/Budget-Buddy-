@@ -15,6 +15,7 @@ import {useSelector} from 'react-redux';
 
 function ProtectedRoute({ component, children, ...props }) {
   const user = useSelector((store) => store.user);
+  const username = useSelector((store) => store.userData.registrationReducer)
 
   // Component may be passed in as a "component" prop,
   // or as a child component.
@@ -27,7 +28,7 @@ function ProtectedRoute({ component, children, ...props }) {
       // are now passed along to the 'Route' Component
       {...props}
     >
-      {user.id ?
+      {user.id || username ? //added username so its still protected, but I can go through user registration steps
         // If the user is logged in, show the protected component
         <ProtectedComponent />
         :
