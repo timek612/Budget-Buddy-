@@ -4,3 +4,17 @@
     right: 0;
     margin: 30px;
 }
+
+input {
+    width: 200px;
+    text-align: center;
+    padding: 10px;
+    display: block;
+
+
+}
+
+.personalDiv {
+    text-align: center;
+
+}

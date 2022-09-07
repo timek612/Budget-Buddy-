@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 });
 
 
-router.put('/', (req, res) => {
+router.put('/', (req, res) => { //this PUT updates the user_id column in Money table
   console.log('ID SHOWING UP BELOW??');
   console.log(req.body.id);
 
@@ -37,7 +37,7 @@ router.put('/', (req, res) => {
 /**
  * POST route template
  */
-router.post('/', (req, res) => {
+router.post('/', (req, res) => {// This POST inserts salary and savings into money table
   console.log(req.body);
   const income = Number(req.body.income)
   const savings = Number(req.body.savings)

@@ -9,7 +9,7 @@ function UserSubmissionPage () {
    return ( <>
         <div id="submissionDiv">
         <h1>Thanks!</h1>
-        <h4>Now lets hear about some recurring expenses.</h4>
+        <h3>Now lets hear about some recurring expenses.</h3>
         </div>
         <button id='submissionNextBtn' onClick={() => handleClick()}>Next</button>
         </>
