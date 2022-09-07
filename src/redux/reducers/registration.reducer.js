@@ -8,4 +8,6 @@ const registrationReducer = (state = [], action) => {
     }
 }
 
+export default registrationReducer;
+
 //When I come back: finish setting up reducer. need to be able to take in all new info and then send it to db on submit. 
