@@ -1,0 +1,10 @@
+#submissionDiv {
+    text-align: center;
+}
+
+#submissionNextBtn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 30px;
+}
