@@ -1,9 +1,11 @@
 import './RecurringSetup.css'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
 
 function RecurringSetup() {
     const history = useHistory()
+    const dispatch = useDispatch()
 
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('')
@@ -17,10 +19,23 @@ function RecurringSetup() {
 
     const handleAdd = () => {
         console.log('added');
+        dispatch ({
+            type: 'NEW_RECURRING_EXPENSE',
+            payload: {
+                description,
+                category,
+                date,
+                total
+            }
+        })
+        setDescription('')
+        setCategory('initial')
+        setDate('')
+        setTotal('')
     }
 
     const handleNext = () => {
-        
+
     }
 
     // console.log(category);
@@ -46,20 +61,20 @@ function RecurringSetup() {
                 <select name="category" className='personalInput' 
                 value={category} onChange={dropDownChange}
                 >
-                    <option value=""></option>
-                    <option value="Housing">Housing</option>
-                    <option value="Transportation">Transportation</option>
-                    <option value="Food">Food</option>
-                    <option value="Utilities">Utilities</option>
-                    <option value="Clothing">Clothing</option>
-                    <option value="Medical">Medical</option>
-                    <option value="Insurance">Insurance</option>
-                    <option value="Household">Household</option>
-                    <option value="Lifestyle">Lifestyle</option>
-                    <option value="Debt">Debt</option>
-                    <option value="Education">Education</option>
-                    <option value="Entertainment">Entertainment</option>
-                    <option value="Donations">Donations</option>
+                    <option value="initial">Select a Category</option>
+                    <option value={1}>Housing</option>
+                    <option value={2}>Transportation</option>
+                    <option value={3}>Food</option>
+                    <option value={4}>Utilities</option>
+                    <option value={5}>Clothing</option>
+                    <option value={6}>Medical</option>
+                    <option value={7}>Insurance</option>
+                    <option value={8}>Household</option>
+                    <option value={9}>Lifestyle</option>
+                    <option value={10}>Debt</option>
+                    <option value={11}>Education</option>
+                    <option value={12}>Entertainment</option>
+                    <option value={13}>Donations</option>
                 </select>
 
                 <br />

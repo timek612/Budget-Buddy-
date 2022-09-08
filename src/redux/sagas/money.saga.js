@@ -14,8 +14,20 @@ function* moneyParameters (action) {// saga for the income post dispatch
     }
 }
 
+function* newRecurringExpense (action) {
+    console.log(action);
+    try {
+        yield axios.post('/money/recurring', action.payload);
+    }
+    catch {
+
+    }
+}
+
+
 function* moneySaga() {
     yield takeEvery('MONEY_PARAMETERS', moneyParameters);
+    yield takeEvery('NEW_RECURRING_EXPENSE', newRecurringExpense)
 }
 
 export default moneySaga;

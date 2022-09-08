@@ -2,6 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 let moneyId = 0;
+let userId = 0;
 
 /**
  * GET route template
@@ -11,11 +12,11 @@ router.get('/', (req, res) => {
 });
 
 
-router.put('/', (req, res) => { //this PUT updates the user_id column in Money table
+router.put('/', (req, res) => { //this PUT updates the user_id column in Money table for initial registration
   console.log('ID SHOWING UP BELOW??');
   console.log(req.body.id);
 
-  let userId = req.body.id
+  userId = req.body.id
 
   const queryText = `
     UPDATE "money"
@@ -28,6 +29,40 @@ router.put('/', (req, res) => { //this PUT updates the user_id column in Money t
     res.sendStatus(200)
   })
   .catch (err => {
+    console.log(err);
+    res.sendStatus(500)
+  })
+})
+
+
+router.post('/recurring', (req, res) => {
+  console.log(req.body);
+
+  const description = req.body.description
+  const category = Number(req.body.category)
+  const date = req.body.date
+  const total = Number(req.body.total)
+
+  const queryText = `
+  INSERT INTO "expenses" (description, date, cost, recurring, category_id, user_id)
+  VALUES ($1, $2, $3, $4, $5, $6);
+  `;
+
+  const queryValues = [
+    description,
+    date,
+    total,
+    true,
+    category,
+    userId
+  ]
+
+  pool.query(queryText, queryValues)
+  .then ((response) => {
+    console.log(response);
+    res.sendStatus(201)
+  })
+  .catch ((err) => {
     console.log(err);
     res.sendStatus(500)
   })
