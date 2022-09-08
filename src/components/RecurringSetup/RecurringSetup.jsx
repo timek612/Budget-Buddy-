@@ -35,7 +35,7 @@ function RecurringSetup() {
     }
 
     const handleNext = () => {
-
+        history.push('/thankYou')
     }
 
     // console.log(category);
