@@ -1,9 +1,16 @@
 import './ThankYou.css'
 import {  useHistory  }  from 'react-router-dom'
+import { useDispatch } from 'react-redux';
 
 function ThankYou () {
     const history = useHistory()
+    const dispatch = useDispatch()
+    
     const sendHome = () => {
+        console.log('SENDING LOGIN FROM THANK YOU PAGE');
+        dispatch ({
+            type: 'LOGIN'
+        })
         history.push('/user')
     }
     
