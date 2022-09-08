@@ -5,7 +5,7 @@
     margin: 30px;
 }
 
-input {
+.personalInput {
     width: 200px;
     text-align: center;
     padding: 10px;
@@ -14,7 +14,6 @@ input {
 
 }
 
-.personalDiv {
+#personalDiv {
     text-align: center;
-
 }

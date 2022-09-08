@@ -50,8 +50,9 @@ function PersonalForm() {
     return (
         <>
 
-            <div className='personalDiv'>
+            <div id='personalDiv'>
                 <input type="text" placeholder="First name*"
+                    className='personalInput'
                     value={firstName}
                     required
                     onChange={(event) => setFirstName(event.target.value)}
@@ -60,6 +61,7 @@ function PersonalForm() {
                 <br />
 
                 <input type="text" placeholder="Last name*"
+                    className='personalInput'
                     value={lastName}
                     required
                     onChange={(event) => setLastName(event.target.value)}
@@ -68,6 +70,7 @@ function PersonalForm() {
                 <br />
 
                 <input type="number" placeholder="Age*"
+                    className='personalInput'
                     value={age}
                     required
                     onChange={(event) => setAge(event.target.value)}
@@ -76,6 +79,7 @@ function PersonalForm() {
                 <br />
 
                 <input type="number" placeholder="Annual Income*"
+                    className='personalInput'
                     value={income}
                     required
                     onChange={(event) => setIncome(event.target.value)}
@@ -84,6 +88,7 @@ function PersonalForm() {
                 <br />
 
                 <input type="number" placeholder="Percentage to save*"
+                    className='personalInput'
                     value={savings}
                     required
                     onChange={(event) => setSavings(event.target.value)}
