@@ -26,7 +26,7 @@ function RecurringExpenses () {
         <section id='list'>
             {recurringExpenses.map(expense => {
                 return (
-                    <div key={expense.description} className='recurringExpenseDiv'>
+                    <div key={expense.id} className='recurringExpenseDiv'>
                         <p>{expense.date}</p>
                         <p>{expense.description}</p>
                         <p>{expense.cost}</p>

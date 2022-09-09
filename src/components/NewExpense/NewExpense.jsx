@@ -15,6 +15,10 @@ function NewExpense () {
     const [total, setTotal] = useState('')
     const [type, setType] = useState('')
 
+    const handleHome = () => {
+        history.push('/user')
+    }
+    
     const dropDownChange = (e) => {
         setCategory(e.target.value)
     
@@ -119,7 +123,7 @@ function NewExpense () {
 
             </div>
             <button id='plusButton' onClick={() => handleAdd()}>+</button>
-            <button id='recurringNextBtn' onClick={() => handleNext()}>Next</button>
+            <button id='recurringNextBtn' onClick={() => handleHome()}>Home</button>
         </>
     )
 }

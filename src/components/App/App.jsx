@@ -38,6 +38,7 @@ function App() {
   const dispatch = useDispatch();
 
   const user = useSelector(store => store.user);
+  // const individualExpenses = useSelector((store) => store.expenseReducer.expenseReducer)
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
@@ -76,7 +77,7 @@ function App() {
             <EditProfile />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path="/expenseDetails">
+          <ProtectedRoute path= '/expenseDetails'>
             <ExpenseDetails />
           </ProtectedRoute>
 
@@ -89,7 +90,7 @@ function App() {
           </ProtectedRoute>
 
           {/* I want this to be protected but I can't push unless auth */}
-          <Route exact path="/welcomePage"> 
+          <Route exact path="/welcomePage">
             <WelcomePage />
           </Route>
 
