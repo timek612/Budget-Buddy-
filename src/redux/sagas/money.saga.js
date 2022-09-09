@@ -20,7 +20,7 @@ function* newRecurringExpense (action) {
         yield axios.post('/money/recurring', action.payload);
     }
     catch {
-
+        console.log('error');
     }
 }
 

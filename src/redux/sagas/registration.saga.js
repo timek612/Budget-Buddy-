@@ -14,14 +14,10 @@ function* registerUser(action) {
 
     // passes the username and password from the payload to the server
     yield axios.post('/api/user/register', action.payload )
-    .then(response => {
-      console.log(response.data[0])// id of the user that just registered
-      axios.put('/money', response.data[0]);
-    })
-    ;
 
     // automatically log a user in after registration
-    // yield put({ type: 'LOGIN', payload: action.payload });
+    yield put({ type: 'LOGIN', payload: action.payload.credentials });
+
 
     // set to 'login' mode so they see the login screen
     // after registration or after they log out

@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 let moneyId = 0;
-let userId = 0;
+
 
 /**
  * GET route template
@@ -12,27 +12,27 @@ router.get('/', (req, res) => {
 });
 
 
-router.put('/', (req, res) => { //this PUT updates the user_id column in Money table for initial registration
-  console.log('ID SHOWING UP BELOW??');
-  console.log(req.body.id);
+// router.put('/', (req, res) => { //this PUT updates the user_id column in Money table for initial registration
+//   console.log('ID SHOWING UP BELOW??');
+//   console.log(req.body.id);
 
-  userId = req.body.id
+//   userId = req.body.id
 
-  const queryText = `
-    UPDATE "money"
-    SET "user_id" = $1
-    WHERE "id" = $2;
-  `;
+//   const queryText = `
+//     UPDATE "money"
+//     SET "user_id" = $1
+//     WHERE "id" = $2;
+//   `;
 
-  pool.query (queryText, [userId, moneyId])
-  .then (response => {
-    res.sendStatus(200)
-  })
-  .catch (err => {
-    console.log(err);
-    res.sendStatus(500)
-  })
-})
+//   pool.query (queryText, [userId, moneyId])
+//   .then (response => {
+//     res.sendStatus(200)
+//   })
+//   .catch (err => {
+//     console.log(err);
+//     res.sendStatus(500)
+//   })
+// })
 
 
 router.post('/recurring', (req, res) => {
@@ -42,6 +42,7 @@ router.post('/recurring', (req, res) => {
   const category = Number(req.body.category)
   const date = req.body.date
   const total = Number(req.body.total)
+  const userId = req.user.id// this is the row in the user table of whos logged in 
 
   const queryText = `
   INSERT INTO "expenses" (description, date, cost, recurring, category_id, user_id)

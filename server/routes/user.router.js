@@ -25,14 +25,29 @@ router.post('/register', (req, res, next) => {// This POST sends all user info t
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const age = req.body.age
+  const income = req.body.income
+  const savings = req.body.savings
 
   const queryText = `INSERT INTO "user" (username, password, firstname, lastname, age)
     VALUES ($1, $2, $3, $4, $5) RETURNING id`;
   pool
     .query(queryText, [username, password, firstName, lastName, age])
     .then (response => { //here the Id is returned so I can use it for the Money PUT
-      console.log(response.rows);
-      res.send(response.rows)
+      console.log(response.rows[0].id);
+      
+      const secondQueryText = `
+      INSERT INTO "money" (income, savings_amount, user_id)
+      VALUES ($1, $2, $3) RETURNING id;
+    `;
+    pool.query(secondQueryText, [income, savings, response.rows[0].id])
+      .then (response => {
+        res.sendStatus(200)
+      })
+      .catch (err => {
+        res.sendStatus(500)
+      })
+
+      
     })
 
     .catch((err) => {

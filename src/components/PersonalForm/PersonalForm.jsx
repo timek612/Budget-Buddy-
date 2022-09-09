@@ -30,17 +30,15 @@ function PersonalForm() {
                 firstName, 
                 lastName,
                 age,
+                income, 
+                savings
             })
             
         })
         
-        dispatch ({
-            type: 'MONEY_PARAMETERS',
-            payload: ({
-                income, 
-                savings
-            })
-        })
+        // dispatch ({
+            
+        // })
       
 
         history.push('/userSubmissionPage')
