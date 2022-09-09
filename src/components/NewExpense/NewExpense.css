@@ -1,0 +1,14 @@
+
+
+.personalInput {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+#newExpenseDropDown {
+    width: 225px;
+}
+
+#newExpenseHeader {
+    text-align: center;
+}

@@ -1,0 +1,21 @@
+.recurringExpenseDiv {
+    width: auto;
+    height: auto;
+    border: solid black 1px;
+    margin: 20px; 
+    padding: 20px;
+}
+
+#recurringHeader {
+    text-align: center;
+}
+
+#btnToIndividual {
+  
+    /* position: absolute; */
+    /* top: 20%;
+    left: 50%; */
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    margin-left: 50%;
+}
