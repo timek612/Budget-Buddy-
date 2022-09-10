@@ -38,6 +38,27 @@ router.post('/', (req, res) => {
 
 })
 
+router.delete('/:id', (req, res) => {
+    console.log('in delete');
+    let expenseId = req.params.id
+    console.log(expenseId);
+
+    let queryText = `
+    DELETE FROM "expenses"
+    WHERE "id" = $1
+    `
+
+    pool.query(queryText, [expenseId])
+    .then(response => {
+        console.log('DELETED EXPENSE');
+        res.sendStatus(200)
+    })
+    .catch(err => {
+        console.log(err);
+        res.sendStatus(500)
+    })
+})
+
 router.get('/individual', (req, res) => {
     console.log('in individual expense');
     let id = req.user.id

@@ -3,6 +3,17 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux'
 
 
+function* deleteExpense (id) {
+    try {
+        console.log(id);
+        yield axios.delete(`/expense/${id.payload}`)
+        yield put({type: 'GET_INDIVIDUAL'})
+    }
+    catch {
+        console.log('EXPENSE SAGA: error in deleting expense');
+    }
+}
+
 function* getRecurringExpenses () {
     
     try {
@@ -12,7 +23,7 @@ function* getRecurringExpenses () {
         yield put({type: 'SEND_RECURRING_EXPENSES', payload: response.data})
     }
     catch {
-        console.log('error in recurring retrieval');
+        console.log('EXPENSE SAGA: error in recurring retrieval');
     }
 }
 
@@ -23,7 +34,7 @@ function* getIndividual () {
         yield put({type: 'SEND_INDIVIDUAL_EXPENSES', payload: response.data})
     }
     catch {
-        console.log('error in individual retrieval');
+        console.log('EXPENSE SAGA: error in individual retrieval');
     }
 }
 
@@ -32,7 +43,7 @@ function* newExpense (action) {
         yield axios.post('/expense', action.payload)
     }
     catch {
-        console.log('error');
+        console.log('EXPENSE SAGA: error');
     }
 }
 
@@ -40,6 +51,7 @@ function* expenseSaga () {
     yield takeEvery ('GET_RECURRING', getRecurringExpenses);
     yield takeEvery ('GET_INDIVIDUAL', getIndividual)
     yield takeEvery ('NEW_EXPENSE', newExpense)
+    yield takeEvery ('DELETE_EXPENSE', deleteExpense)
 }
 
 export default expenseSaga;

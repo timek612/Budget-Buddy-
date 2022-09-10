@@ -19,14 +19,24 @@ function RecurringExpenses () {
         history.push('/individualExpenses')
     }
 
+    const expenseClicked = (expense) => {
+        console.log('click');
+        dispatch ({
+            type: 'SET_EXPENSE',
+            payload: expense
+        })
+        history.push(`/expenseDetails/${expense.id}`)
+
+    }
+
     return (
         <div>
-        <h1 id='recurringHeader'>RecurringExpenses</h1>
+        <h1 className='recurringHeader'>RecurringExpenses</h1>
         <button id='btnToIndividual' onClick={() => individualExpenses()}>Individual</button>
         <section id='list'>
             {recurringExpenses.map(expense => {
                 return (
-                    <div key={expense.id} className='recurringExpenseDiv'>
+                    <div key={expense.id} className='recurringExpenseDiv' onClick={() => expenseClicked(expense)}>
                         <p>{expense.date}</p>
                         <p>{expense.description}</p>
                         <p>{expense.cost}</p>

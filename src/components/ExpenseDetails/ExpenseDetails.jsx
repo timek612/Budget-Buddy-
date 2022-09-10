@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 function ExpenseDetails () {
@@ -18,6 +18,16 @@ function ExpenseDetails () {
         history.push('/editExpense')
     }
 
+    const deleteExpense = () => {
+        console.log(expense.id);
+        dispatch ({
+            type: 'DELETE_EXPENSE',
+            payload: expense.id
+        })
+        history.push('/individualExpenses')
+    }
+   
+
     const sendBack = () => {
         history.push('/individualExpenses')
     }
@@ -32,6 +42,7 @@ function ExpenseDetails () {
         <p>{expense.cost}</p>
         </div>
         <button onClick={() => editExpense()}>Edit</button>
+        <button onClick={() => deleteExpense()}>Delete</button>
         </div>
     )
 }

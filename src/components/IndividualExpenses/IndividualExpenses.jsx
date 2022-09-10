@@ -1,6 +1,7 @@
 import { useHistory } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import './IndividualExpenses.css'
 
 function IndividualExpenses () {
     const history = useHistory()
@@ -30,9 +31,9 @@ function IndividualExpenses () {
     
     return (
         <div>
-        <h1>Expenses</h1>
+        <h1 className='recurringHeader'>Expenses</h1>
         {/* <h4 onClick={() => expenseClicked()}>I'm an expense</h4> */}
-        <button onClick={() => recurring()}>Recurring</button>
+        <button id='btnToRecurring' onClick={() => recurring()}>Recurring</button>
         <section id='list'>
         {individualExpenses.map(expense => {
                 return (
