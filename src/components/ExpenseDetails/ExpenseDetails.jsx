@@ -15,7 +15,8 @@ function ExpenseDetails () {
     //   }, [])
     
     const editExpense = () => {
-        history.push('/editExpense')
+        history.push(`/editExpense/${expense.id}`)
+        
     }
 
     const deleteExpense = () => {

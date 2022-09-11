@@ -81,7 +81,7 @@ function App() {
             <ExpenseDetails />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path="/editExpense">
+          <ProtectedRoute path="/editExpense">
             <EditExpense />
           </ProtectedRoute>
 
