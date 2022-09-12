@@ -29,8 +29,37 @@ router.post('/', (req, res) => {
 
     pool.query(queryText, queryValues)
         .then(response => {
-            res.sendStatus(201)
+            let secondQueryText = `
+            SELECT "savings_adjusted_income" FROM "money"
+            WHERE "user_id" = $1;
+            `;
+            pool.query(secondQueryText, [userId])
+            .then (response => {
+                console.log(response.rows[0].savings_adjusted_income);
+                let annualIncome = response.rows[0].savings_adjusted_income
 
+                let recurringExpenseAnnualCost = (total * 12)
+                console.log(recurringExpenseAnnualCost);
+                annualIncome -= recurringExpenseAnnualCost
+                console.log(annualIncome);
+
+                let thirdQueryText = `
+                UPDATE "money"
+                SET "savings_adjusted_income" = $1
+                WHERE "user_id" = $2;
+                `;
+                pool.query(thirdQueryText, [annualIncome, userId])
+                .then (response => {
+                    console.log(response);
+                    res.sendStatus(200)
+                })
+                .catch (err => {
+                    console.log(err);
+                    res.sendStatus(500)
+                })
+
+
+            })
         })
         .catch(err => {
             res.sendStatus(500)

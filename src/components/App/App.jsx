@@ -41,8 +41,10 @@ function App() {
   // const individualExpenses = useSelector((store) => store.expenseReducer.expenseReducer)
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_USER' });
+    dispatch({ type: 'FETCH_USER' } );
   }, [dispatch]);
+
+  
 
   return (
     <Router>

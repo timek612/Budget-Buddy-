@@ -11,23 +11,16 @@ router.get('/allowance', (req, res) => {//get request gets income and savings an
   console.log(req.user);
   let userId = req.user.id
   let queryText = `
-  SELECT "income", "savings_amount" FROM "money"
+  SELECT "savings_adjusted_income" FROM "money"
   WHERE "money".user_id = $1;
   `;
 
   pool.query (queryText, [userId]) 
   .then (response => {
     console.log(response.rows[0]);
-    let preIncome = response.rows[0].income
-    let preSavingsAmount = response.rows[0].savings_amount
-    // console.log(income, savingsAmount);
 
-    let savingsAmount = ((100 - preSavingsAmount) * 0.01)
-    console.log(savingsAmount);
-
-    let netIncome = (preIncome * savingsAmount)
-    console.log(netIncome);
-
+    let netIncome = response.rows[0].savings_adjusted_income    
+    
     let dailyAllowance = Math.round((netIncome / 365))
     let weeklyAllowance = Math.round((netIncome / 52))
     let monthlyAllowance = Math.round((netIncome / 12))
@@ -40,21 +33,8 @@ router.get('/allowance', (req, res) => {//get request gets income and savings an
       monthlyAllowance: monthlyAllowance
     }
 
-    let secondQueryText = `
-    UPDATE "money"
-    SET "savings_adjusted_income" = $1
-    WHERE "money".user_id = $2;
-    `
-    pool.query(secondQueryText, [netIncome, userId])
-    .then (response => {
-      res.send(maths)
-    })
-    .catch (err => {
-      console.log(err);
-      res.sendStatus(500)
-    })
-    
-
+    res.send(maths)
+  
   })
   .catch (err => {
     console.log(err);
@@ -101,25 +81,41 @@ router.post('/recurring', (req, res) => {
 /**
  * POST route template
  */
-router.post('/', (req, res) => {// This POST inserts salary and savings into money table
-  console.log(req.body);
-  const income = Number(req.body.income)
-  const savings = Number(req.body.savings)
+// router.post('/', (req, res) => {// This POST inserts salary and savings into money table
+//   // console.log(req.body);
+//   console.log('in money post');
+//   const preIncome = Number(req.body.income)
+//   const preSavingsAmount = Number(req.body.savings)
 
-  const queryText = `
-    INSERT INTO "money" (income, savings_amount)
-    VALUES ($1, $2) RETURNING id;
-  `;
-  pool.query(queryText, [income, savings])
-  .then ((response) => {
-    moneyId = response.rows[0].id
-    // console.log(moneyId);
-    res.sendStatus(201)
-  })
-  .catch((err) => {
-    console.log('error', err);
-    res.sendStatus(500);
-  })
-});
+//   const queryText = `
+//     INSERT INTO "money" (income, savings_amount)
+//     VALUES ($1, $2) RETURNING id;
+//   `;
+//   pool.query(queryText, [preIncome, preSavingsAmount])
+//   .then (response => {
+//     // moneyId = response.rows[0].id
+//     // console.log(moneyId);
+//     console.log(response);
+//     console.log('IN WHERE I WANNA BEEEEE');
+//     let savingsAmount = ((100 - preSavingsAmount) * 0.01)
+//     let netIncome = (preIncome * savingsAmount)
+//     console.log(savingsAmount);
+
+//     let secondQueryText = `
+//     UPDATE "money"
+//     SET "savings_adjusted_income" = $1
+//     WHERE "money".user_id = $2;`
+
+//     pool.query(secondQueryText, [netIncome, req.user.id])
+//     .then (response => {
+//       res.sendStatus(200)
+//     })
+
+//   })
+//   .catch((err) => {
+//     console.log('error', err);
+//     res.sendStatus(500);
+//   })
+// });
 
 module.exports = router;
