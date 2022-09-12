@@ -12,7 +12,7 @@ function UserPage() {
   const user = useSelector((store) => store.user);
   const allowances = useSelector((store) => store.moneyReducer.calculationReducer);
   const dispatch = useDispatch()
-  console.log(allowances);
+  // console.log(allowances);
 
 
   useEffect(() => {
@@ -38,12 +38,12 @@ function UserPage() {
       <h2>Welcome, {user.firstname}!</h2>
       <div id='allowanceDiv' onClick={() => changeAllowanceRange()}>
         {displayedAllowance === 1 ?
-         <div>${allowances.dailyAllowance}</div> :
-
+         <div>${allowances.dailyAllowance}<p className='allowanceText'>for today</p></div> 
+         :
           displayedAllowance === 2 ?
-           <div>${allowances.weeklyAllowance}</div> :
-           
-            <div>${allowances.monthlyAllowance}</div>}
+           <div>${allowances.weeklyAllowance}<p className='allowanceText'>for this week</p></div> 
+           :
+            <div>${allowances.monthlyAllowance}<p className='allowanceText'>for this month</p></div>}
       </div>
 
     </div>

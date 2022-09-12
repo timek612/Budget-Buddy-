@@ -40,7 +40,20 @@ router.get('/allowance', (req, res) => {//get request gets income and savings an
       monthlyAllowance: monthlyAllowance
     }
 
-    res.send(maths)
+    let secondQueryText = `
+    UPDATE "money"
+    SET "savings_adjusted_income" = $1
+    WHERE "money".user_id = $2;
+    `
+    pool.query(secondQueryText, [netIncome, userId])
+    .then (response => {
+      res.send(maths)
+    })
+    .catch (err => {
+      console.log(err);
+      res.sendStatus(500)
+    })
+    
 
   })
   .catch (err => {
