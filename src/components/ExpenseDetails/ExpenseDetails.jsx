@@ -38,8 +38,9 @@ function ExpenseDetails () {
         <h1>Expense Details</h1>
         <button onClick={() => sendBack()}>Back</button>
         <div className='recurringExpenseDiv'>
-        <p>{expense.description}</p>
         <p>{expense.date}</p>
+        <p>{expense.description}</p>
+        <p>{expense.category_type}</p>
         <p>{expense.cost}</p>
         </div>
         <button onClick={() => editExpense()}>Edit</button>

@@ -39,6 +39,7 @@ function RecurringExpenses () {
                     <div key={expense.id} className='recurringExpenseDiv' onClick={() => expenseClicked(expense)}>
                         <p>{expense.date}</p>
                         <p>{expense.description}</p>
+                        <p>{expense.category_type}</p>
                         <p>{expense.cost}</p>
                     </div>
                 )

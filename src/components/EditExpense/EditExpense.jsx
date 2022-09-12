@@ -1,6 +1,7 @@
 import './EditExpense.css'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 function EditExpense() {
     const expense = useSelector((store) => store.expenseReducer.currentExpense)
     console.log(expense);
@@ -10,10 +11,35 @@ function EditExpense() {
     const [date, setDate] = useState(expense.date)
     const [total, setTotal] = useState(expense.cost)
 
+    const dispatch = useDispatch()
+    const history = useHistory()
+
+    const dropDownChange = (e) => {
+        setCategory(e.target.value)
+    
+    }
+
+    const saveEditedExpense = () => {
+        let id = expense.id
+        dispatch ({
+            type: 'EDITED_EXPENSE',
+            payload: {
+                description,
+                date,
+                category,
+                total,
+                id
+
+            }
+        })
+        history.push('/individualExpenses')
+    }
+
 
     return (
         <div>
             <h1 className='recurringHeader'>Edit Expense</h1>
+            
             <div className='recurringInputs'>
 
                 <input type="text" placeholder="Expense*"
@@ -26,7 +52,7 @@ function EditExpense() {
 
                 <br />
 
-                {/* <select name="category" className='personalInput'
+                <select name="category" className='personalInput'
                     value={category} onChange={dropDownChange}
                 >
                     <option value="initial">Select a Category</option>
@@ -43,7 +69,7 @@ function EditExpense() {
                     <option value={11}>Education</option>
                     <option value={12}>Entertainment</option>
                     <option value={13}>Donations</option>
-                </select> */}
+                </select>
 
                 <br />
 
@@ -67,6 +93,8 @@ function EditExpense() {
 
 
             </div>
+            <button id='editSaveButton' onClick={() => saveEditedExpense()}>Save</button>
+            <button id='editCancelButton'>Cancel</button>
 
         </div>
     )

@@ -7,32 +7,47 @@ let moneyId = 0;
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
-  // GET route code here
+router.get('/allowance', (req, res) => {//get request gets income and savings and does math for it
+  console.log(req.user);
+  let userId = req.user.id
+  let queryText = `
+  SELECT "income", "savings_amount" FROM "money"
+  WHERE "money".user_id = $1;
+  `;
+
+  pool.query (queryText, [userId]) 
+  .then (response => {
+    console.log(response.rows[0]);
+    let preIncome = response.rows[0].income
+    let preSavingsAmount = response.rows[0].savings_amount
+    // console.log(income, savingsAmount);
+
+    let savingsAmount = ((100 - preSavingsAmount) * 0.01)
+    console.log(savingsAmount);
+
+    let netIncome = (preIncome * savingsAmount)
+    console.log(netIncome);
+
+    let dailyAllowance = Math.round((netIncome / 365))
+    let weeklyAllowance = Math.round((netIncome / 52))
+    let monthlyAllowance = Math.round((netIncome / 12))
+    console.log(dailyAllowance, weeklyAllowance, monthlyAllowance);
+
+    let maths = {
+      netIncome: netIncome,
+      dailyAllowance: dailyAllowance,
+      weeklyAllowance: weeklyAllowance,
+      monthlyAllowance: monthlyAllowance
+    }
+
+    res.send(maths)
+
+  })
+  .catch (err => {
+    console.log(err);
+    res.sendStatus(500)
+  })
 });
-
-
-// router.put('/', (req, res) => { //this PUT updates the user_id column in Money table for initial registration
-//   console.log('ID SHOWING UP BELOW??');
-//   console.log(req.body.id);
-
-//   userId = req.body.id
-
-//   const queryText = `
-//     UPDATE "money"
-//     SET "user_id" = $1
-//     WHERE "id" = $2;
-//   `;
-
-//   pool.query (queryText, [userId, moneyId])
-//   .then (response => {
-//     res.sendStatus(200)
-//   })
-//   .catch (err => {
-//     console.log(err);
-//     res.sendStatus(500)
-//   })
-// })
 
 
 router.post('/recurring', (req, res) => {

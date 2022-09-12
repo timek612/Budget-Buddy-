@@ -3,6 +3,16 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux'
 
 
+function* editExpense (action) {
+    try {
+        yield axios.put('/expense', action.payload)
+        yield put({type: 'GET_INDIVIDUAL'})
+    }
+    catch {
+        console.log('EXPENSE SAGA: error in editing expense');
+    }
+}
+
 function* deleteExpense (id) {
     try {
         console.log(id);
@@ -52,6 +62,7 @@ function* expenseSaga () {
     yield takeEvery ('GET_INDIVIDUAL', getIndividual)
     yield takeEvery ('NEW_EXPENSE', newExpense)
     yield takeEvery ('DELETE_EXPENSE', deleteExpense)
+    yield takeEvery ('EDITED_EXPENSE', editExpense)
 }
 
 export default expenseSaga;

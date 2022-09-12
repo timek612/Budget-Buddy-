@@ -27,15 +27,49 @@ router.post('/', (req, res) => {
         userId
     ]
 
-    pool.query(queryText, queryValues) 
-    .then (response => {
-        res.sendStatus(201)
+    pool.query(queryText, queryValues)
+        .then(response => {
+            res.sendStatus(201)
 
-    })
-    .catch (err => {
-        res.sendStatus(500)
-    })
+        })
+        .catch(err => {
+            res.sendStatus(500)
+        })
 
+})
+
+router.put('/', (req, res) => {
+    console.log('in edit expense');
+    let description = req.body.description
+    let date = req.body.date
+    let category = Number(req.body.category)
+    let total = req.body.total
+    let expenseId = req.body.id
+    console.log(req.body);
+
+    let queryText = `
+    UPDATE "expenses"
+    SET "description" = $1, "date" = $2, "cost" = $3, "category_id" = $5
+    WHERE "id" = $4
+    `
+
+    let queryValues = [
+        description,
+        date,
+        total,
+        expenseId,
+        category
+    ]
+
+    pool.query(queryText, queryValues)
+        .then(response => {
+            console.log('successful edit');
+            res.sendStatus(200)
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500)
+        })
 })
 
 router.delete('/:id', (req, res) => {
@@ -49,14 +83,14 @@ router.delete('/:id', (req, res) => {
     `
 
     pool.query(queryText, [expenseId])
-    .then(response => {
-        console.log('DELETED EXPENSE');
-        res.sendStatus(200)
-    })
-    .catch(err => {
-        console.log(err);
-        res.sendStatus(500)
-    })
+        .then(response => {
+            console.log('DELETED EXPENSE');
+            res.sendStatus(200)
+        })
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(500)
+        })
 })
 
 router.get('/individual', (req, res) => {
@@ -64,13 +98,18 @@ router.get('/individual', (req, res) => {
     let id = req.user.id
 
     let queryText = `
-    SELECT "description", "date", "cost", "id" FROM "expenses"
-    WHERE "recurring" = $1 AND "user_id" = $2;
+    SELECT "description", "date", "cost", "expenses".id, "category_type" FROM "expenses"
+    JOIN "category"
+    ON "expenses".category_id = "category".id
+    WHERE "recurring" = $1 AND "user_id" = $2 AND "category_id" = "category".id;
     `
+
+
     let queryValues = [
         false,
         id
     ]
+
 
     pool.query(queryText, queryValues)
         .then(response => {
@@ -90,8 +129,10 @@ router.get('/recurring', (req, res) => {
     let id = req.user.id
 
     let queryText = `
-    SELECT "description", "date", "cost", "id" FROM "expenses"
-    WHERE "recurring" = $1 AND "user_id" = $2;
+    SELECT "description", "date", "cost", "expenses".id, "category_type" FROM "expenses"
+    JOIN "category"
+    ON "expenses".category_id = "category".id
+    WHERE "recurring" = $1 AND "user_id" = $2 AND "category_id" = "category".id;
     `
     let queryValues = [
         true,
