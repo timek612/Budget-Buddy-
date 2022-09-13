@@ -11,7 +11,7 @@ router.get('/allowance', (req, res) => {//get request gets income and savings an
   console.log(req.user);
   let userId = req.user.id
   let queryText = `
-  SELECT "savings_adjusted_income" FROM "money"
+  SELECT "savings_adjusted_income", "sum_of_expenses" FROM "money"
   WHERE "money".user_id = $1;
   `;
 
@@ -19,11 +19,12 @@ router.get('/allowance', (req, res) => {//get request gets income and savings an
   .then (response => {
     console.log(response.rows[0]);
 
-    let netIncome = response.rows[0].savings_adjusted_income    
+    let netIncome = response.rows[0].savings_adjusted_income 
+    let expensesSum = response.rows[0].sum_of_expenses
     
-    let dailyAllowance = Math.round((netIncome / 365))
-    let weeklyAllowance = Math.round((netIncome / 52))
-    let monthlyAllowance = Math.round((netIncome / 12))
+    let dailyAllowance = Math.round((netIncome / 365) - expensesSum)
+    let weeklyAllowance = Math.round((netIncome / 52) - expensesSum)
+    let monthlyAllowance = Math.round((netIncome / 12) - expensesSum)
     console.log(dailyAllowance, weeklyAllowance, monthlyAllowance);
 
     let maths = {

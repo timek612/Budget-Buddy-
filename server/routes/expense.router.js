@@ -29,18 +29,24 @@ router.post('/', (req, res) => {
 
     pool.query(queryText, queryValues)
         .then(response => {
-            let secondQueryText = `
+
+            if (type === 'true') {
+                let secondQueryText = `
             SELECT "savings_adjusted_income" FROM "money"
             WHERE "user_id" = $1;
             `;
             pool.query(secondQueryText, [userId])
             .then (response => {
                 console.log(response.rows[0].savings_adjusted_income);
-                let annualIncome = response.rows[0].savings_adjusted_income
 
-                let recurringExpenseAnnualCost = (total * 12)
+                let annualIncome = response.rows[0].savings_adjusted_income// S.A.I from money table
+
+                let recurringExpenseAnnualCost = (total * 12)// yearly cost for recurring expense
+                
                 console.log(recurringExpenseAnnualCost);
-                annualIncome -= recurringExpenseAnnualCost
+                
+                annualIncome -= recurringExpenseAnnualCost// income - yearly cost 
+                
                 console.log(annualIncome);
 
                 let thirdQueryText = `
@@ -60,6 +66,37 @@ router.post('/', (req, res) => {
 
 
             })
+            }
+            else {
+                let secondQueryText = `
+                SELECT "sum_of_expenses" FROM "money"
+                WHERE "user_id" = $1;
+                `;
+                pool.query(secondQueryText, [userId])
+                .then (response => {
+                    console.log(response.rows[0].sum_of_expenses);
+                    let expensesSum = response.rows[0].sum_of_expenses
+                    expensesSum += total;
+
+                    console.log(expensesSum);
+
+                    let thirdQueryText = `
+                    UPDATE "money"
+                    SET "sum_of_expenses" = $1
+                    WHERE "user_id" = $2;
+                    `;
+                    pool.query(thirdQueryText, [expensesSum, userId])
+                    .then(response => {
+                        console.log(response);
+                        res.sendStatus(200)
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        res.sendStatus(500)
+                    })
+                })
+            }
+            
         })
         .catch(err => {
             res.sendStatus(500)

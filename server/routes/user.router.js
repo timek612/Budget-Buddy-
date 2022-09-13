@@ -37,6 +37,8 @@ router.post('/register', (req, res, next) => {// This POST sends all user info t
 
       let savingsAmount = ((100 - preSavingsAmount) * 0.01)
       let netIncome = (preIncome * savingsAmount)
+      console.log(savingsAmount, netIncome);
+      netIncome = Math.round(netIncome)
 
       const secondQueryText = `
       INSERT INTO "money" (income, savings_amount, user_id, savings_adjusted_income)
