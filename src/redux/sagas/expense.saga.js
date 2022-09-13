@@ -16,6 +16,7 @@ function* editExpense (action) {
 function* deleteExpense (id) {
     try {
         console.log(id);
+        yield axios.put(`/money/${id.payload}`)
         yield axios.delete(`/expense/${id.payload}`)
         yield put({type: 'GET_INDIVIDUAL'})
     }
