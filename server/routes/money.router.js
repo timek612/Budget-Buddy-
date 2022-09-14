@@ -177,9 +177,11 @@ router.put('/:id', (req, res) => {
     })
 })
 
-router.put('/editExpense', (req, res) => {
-  
-  let newTotal = Number(req.body.total)
+router.put('/editExpense/:id', (req, res) => {
+  console.log('IN EDIT EXPENSE MONEY TOTALS');
+  if (req.body.recurring === false) {
+    console.log('FALSE');
+  let newTotal = Number(req.body.total)// updated total cost of expense
   let expenseId = req.body.id
 
   let queryText = `
@@ -210,6 +212,7 @@ router.put('/editExpense', (req, res) => {
         `;
 
         pool.query(thirdQueryText, [expensesSum, req.user.id])
+        res.sendStatus(200)
       })
       .catch (err => {
         console.log(err);
@@ -221,7 +224,7 @@ router.put('/editExpense', (req, res) => {
     console.log(err);
     res.sendStatus(500)
   })
-
+}
 })
 
 module.exports = router;

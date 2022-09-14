@@ -164,7 +164,7 @@ router.get('/individual', (req, res) => {
     let id = req.user.id
 
     let queryText = `
-    SELECT "description", "date", "cost", "expenses".id, "category_type" FROM "expenses"
+    SELECT "description", "date", "cost", "expenses".id, "category_type", "recurring" FROM "expenses"
     JOIN "category"
     ON "expenses".category_id = "category".id
     WHERE "recurring" = $1 AND "user_id" = $2 AND "category_id" = "category".id;
@@ -195,7 +195,7 @@ router.get('/recurring', (req, res) => {
     let id = req.user.id
 
     let queryText = `
-    SELECT "description", "date", "cost", "expenses".id, "category_type" FROM "expenses"
+    SELECT "description", "date", "cost", "expenses".id, "category_type", "recurring" FROM "expenses"
     JOIN "category"
     ON "expenses".category_id = "category".id
     WHERE "recurring" = $1 AND "user_id" = $2 AND "category_id" = "category".id;

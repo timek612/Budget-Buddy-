@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux'
 
 function* editExpense (action) {
     try {
-        yield axios.put('/money/editExpense')
+        console.log(action.payload);
+        yield axios.put(`/money/editExpense/${action.payload.id}`, action.payload)
         yield axios.put('/expense', action.payload)
         yield put({type: 'GET_INDIVIDUAL'})
     }

@@ -10,6 +10,7 @@ function EditExpense() {
     const [category, setCategory] = useState('')
     const [date, setDate] = useState(expense.date)
     const [total, setTotal] = useState(expense.cost)
+    const [recurring, setRecurring] = useState(expense.recurring)
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -28,7 +29,8 @@ function EditExpense() {
                 date,
                 category,
                 total,
-                id
+                id,
+                recurring
 
             }
         })
