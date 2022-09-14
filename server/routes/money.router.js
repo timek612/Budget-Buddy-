@@ -1,4 +1,5 @@
 
+
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
@@ -212,15 +213,138 @@ router.put('/editExpense/:id', (req, res) => {
         `;
 
         pool.query(thirdQueryText, [expensesSum, req.user.id])
-        res.sendStatus(200)
+        .then (response => {
+          res.sendStatus(200)
+        })
+      })
+      .catch (err => {
+        console.log(err);
+      })
+    }// end second if statement
+    else {// this is the else for recurring FALSE, but new total is less expensive
+      let difference = currentTotal - newTotal
+
+      let secondQueryText = `
+      SELECT "sum_of_expenses" FROM "money"
+      WHERE "user_id" = $1;
+      `;
+
+      pool.query(secondQueryText, [req.user.id])
+      .then(response => {
+        let expensesSum = response.rows[0].sum_of_expenses
+        expensesSum -= difference
+
+        let thirdQueryText = `
+        UPDATE "money"
+        SET "sum_of_expenses" = $1
+        WHERE "user_id" = $2;
+        `;
+
+        pool.query(thirdQueryText, [expensesSum, req.user.id])
+        .then (response => {
+          res.sendStatus(200)
+        })
+        .catch (err => {
+          console.log(err);
+        })
+        
+
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }//end second else statement
+    
+  })
+  .catch (err => {
+    console.log(err);
+    res.sendStatus(500)
+  })
+}// end first if statement
+else {
+  console.log('TRUE');
+  let newTotal = Number(req.body.total)// updated total cost of expense
+  let expenseId = req.body.id
+
+  let queryText = `
+  SELECT "cost" FROM "expenses"
+  WHERE "id" = $1
+  ;`;
+
+  pool.query(queryText, [expenseId])
+  .then (response => {
+    let currentTotal = response.rows[0].cost
+    if (newTotal > currentTotal) {// more expensive for the user
+      console.log(newTotal, currentTotal);
+      let difference = (newTotal - currentTotal) * 12 // calculates the yearly difference
+      console.log(difference);
+
+      let secondQueryText = `
+      SELECT "savings_adjusted_income" FROM "money"
+      WHERE "user_id" = $1;
+      `;
+
+      pool.query(secondQueryText, [req.user.id])
+      .then(response => {
+        let netIncome = response.rows[0].savings_adjusted_income
+        netIncome -= difference
+        console.log(netIncome);
+
+        let thirdQueryText = `
+        UPDATE "money"
+        SET "savings_adjusted_income" = $1
+        WHERE "user_id" = $2;
+        `;
+
+        pool.query(thirdQueryText, [netIncome, req.user.id])
+        .then(response => {
+          res.sendStatus(200)
+        })
+        .catch(err => {
+          console.log(err);
+        })
+
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }//end third if statement
+    else {
+      console.log(currentTotal, newTotal);
+      let difference = (currentTotal - newTotal) * 100
+      console.log(difference);
+
+      let secondQueryText = `
+      SELECT "savings_adjusted_income" FROM "money"
+      WHERE "user_id" = $1;
+      `;
+
+      pool.query(secondQueryText, [req.user.id])
+      .then (response => {
+        let netIncome = response.rows[0].savings_adjusted_income
+        netIncome += difference
+        console.log(netIncome);
+
+        let thirdQueryText = `
+        UPDATE "money"
+        SET "savings_adjusted_income" = $1
+        WHERE "user_id" = $2;
+        `;
+
+        pool.query(thirdQueryText, [netIncome, req.user.id])
+        .then(response => {
+          res.sendStatus(200)
+        })
+        .catch(err => {
+          console.log(err);
+        })
       })
       .catch (err => {
         console.log(err);
       })
     }
-    
   })
-  .catch (err => {
+  .catch(err => {
     console.log(err);
     res.sendStatus(500)
   })
