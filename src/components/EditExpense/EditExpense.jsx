@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 function EditExpense() {
     const expense = useSelector((store) => store.expenseReducer.currentExpense)
-    // console.log(expense);
+    console.log(expense);
 
     const [description, setDescription] = useState(expense.description);
     const [category, setCategory] = useState('')

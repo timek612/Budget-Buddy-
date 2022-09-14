@@ -177,4 +177,51 @@ router.put('/:id', (req, res) => {
     })
 })
 
+router.put('/editExpense', (req, res) => {
+  
+  let newTotal = Number(req.body.total)
+  let expenseId = req.body.id
+
+  let queryText = `
+  SELECT "cost" FROM "expenses"
+  WHERE "id" = $1
+  ;`;
+  
+  pool.query(queryText, [expenseId])
+  .then (response => {
+    let currentTotal = response.rows[0].cost
+    if (newTotal > currentTotal) {// more expensive for the user
+      let difference = newTotal - currentTotal
+
+      let secondQueryText = `
+      SELECT "sum_of_expenses" FROM "money"
+      WHERE "user_id" = $1;
+      `;
+
+      pool.query(secondQueryText, [req.user.id])
+      .then(response => {
+        let expensesSum = response.rows[0].sum_of_expenses
+        expensesSum += difference
+
+        let thirdQueryText = `
+        UPDATE "money"
+        SET "sum_of_expenses" = $1
+        WHERE "user_id" = $2;
+        `;
+
+        pool.query(thirdQueryText, [expensesSum, req.user.id])
+      })
+      .catch (err => {
+        console.log(err);
+      })
+    }
+    
+  })
+  .catch (err => {
+    console.log(err);
+    res.sendStatus(500)
+  })
+
+})
+
 module.exports = router;
