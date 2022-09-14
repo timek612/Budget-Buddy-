@@ -59,7 +59,7 @@ router.get('/allowance', (req, res) => {//get request gets income and savings an
 });
 
 
-router.post('/recurring', (req, res) => {
+router.post('/recurring', (req, res) => {// not being used anymore I believe
   console.log(req.body);
 
   const description = req.body.description
@@ -311,7 +311,7 @@ else {
     }//end third if statement
     else {
       console.log(currentTotal, newTotal);
-      let difference = (currentTotal - newTotal) * 100
+      let difference = (currentTotal - newTotal) * 12
       console.log(difference);
 
       let secondQueryText = `

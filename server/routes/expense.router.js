@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
     pool.query(queryText, queryValues)
         .then(response => {
 
-            if (type === 'true') {
+            if (type === 'true' || type === true) {
                 let secondQueryText = `
             SELECT "savings_adjusted_income" FROM "money"
             WHERE "user_id" = $1;

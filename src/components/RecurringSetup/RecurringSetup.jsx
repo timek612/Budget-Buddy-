@@ -11,6 +11,7 @@ function RecurringSetup() {
     const [category, setCategory] = useState('')
     const [date, setDate] = useState('')
     const [total, setTotal] = useState('')
+    const [type, setType] = useState(true)
 
     const dropDownChange = (e) => {
         setCategory(e.target.value)
@@ -20,12 +21,13 @@ function RecurringSetup() {
     const handleAdd = () => {
         console.log('added');
         dispatch ({
-            type: 'NEW_RECURRING_EXPENSE',
+            type: 'NEW_EXPENSE',
             payload: {
                 description,
                 category,
                 date,
-                total
+                total,
+                type
             }
         })
         setDescription('')
