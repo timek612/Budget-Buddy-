@@ -71,10 +71,59 @@ router.post('/updateMoney', (req, res) => {
   let newSavings =  ((100 - savings) * 0.01)
   let newNetIncome = (income * newSavings)
   newNetIncome = Math.round(newNetIncome)
+  console.log(newNetIncome);
 
   let queryText = `
-  
-  `
+  SELECT "income", "savings_amount" FROM "money"
+  WHERE "user_id" = $1;
+  `;
+  pool.query(queryText, [req.user.id])
+  .then (response => {
+    console.log(response.rows[0]);
+    let currentSavings = response.rows[0].savings_amount
+    let currentIncome = response.rows[0].income
+
+    let currentSavingsPercent = ((100 - currentSavings) * 0.01)
+    let currentNetIncome = (currentIncome * currentSavingsPercent)
+    currentNetIncome = Math.round(currentNetIncome)
+    console.log(newNetIncome, currentNetIncome);
+
+    let secondQueryText = `
+    SELECT "savings_adjusted_income" FROM "money"
+    WHERE "user_id" = $1;
+    `;
+
+    pool.query(secondQueryText, [req.user.id])
+    .then(response => {
+      let currentSAI = response.rows[0].savings_adjusted_income
+      let difference = (currentNetIncome - currentSAI)
+      console.log(difference);
+
+      newNetIncome -= difference;
+      console.log(newNetIncome);
+
+      let thirdQueryText = `
+      UPDATE "money"
+      SET "savings_adjusted_income" = $1, "income" = $2, savings_amount = $3
+      WHERE "user_id" = $4;
+      `;
+
+      pool.query(thirdQueryText, [newNetIncome, income, savings, req.user.id])
+      .then(response => {
+        res.sendStatus(200)
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  })
+  .catch(err => {
+    console.log(err);
+    res.sendStatus(500)
+  })
 
 })
 
