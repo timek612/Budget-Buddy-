@@ -351,4 +351,24 @@ else {
 }
 })
 
+
+router.get('/', (req, res) => {
+  let userId = req.user.id
+  // console.log('IN MONEY PARAMETERS');
+  let queryText = `
+  SELECT "income", "savings_amount" FROM "money"
+  WHERE "user_id" = $1;
+  `;
+
+  pool.query(queryText, [userId])
+  .then(response => {
+    res.send(response.rows)
+  })
+  .catch(err => {
+    console.log(err);
+    res.sendStatus(500)
+  })
+
+})
+
 module.exports = router;

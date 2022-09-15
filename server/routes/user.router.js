@@ -63,6 +63,21 @@ router.post('/register', (req, res, next) => {// This POST sends all user info t
     });
 });
 
+router.post('/updateMoney', (req, res) => {
+  console.log(req.body);
+  let income = Number(req.body.userIncome)
+  let savings = Number(req.body.savings)
+
+  let newSavings =  ((100 - savings) * 0.01)
+  let newNetIncome = (income * newSavings)
+  newNetIncome = Math.round(newNetIncome)
+
+  let queryText = `
+  
+  `
+
+})
+
 // Handles login form authenticate/login POST
 // userStrategy.authenticate('local') is middleware that we run on this route
 // this middleware will run our POST if successful

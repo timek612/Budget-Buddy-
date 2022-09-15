@@ -31,6 +31,8 @@ import PersonalForm from '../PersonalForm/PersonalForm';
 import UserSubmissionPage from '../UserSubmissionPage/UserSubmissionPage';
 import RecurringSetup from '../RecurringSetup/RecurringSetup';
 import ThankYou from '../ThankYou/ThankYou';
+import PersonalInfoEdit from '../PersonalInfoEdit/PersonalInfoEdit';
+import IncomeEdit from '../IncomeEdit/IncomeEdit';
 
 import './App.css';
 
@@ -115,6 +117,14 @@ function App() {
           <Route exact path="/logTfOut">
             <LoginPage />
           </Route>
+
+          <ProtectedRoute exact path="/incomeEdit">
+            <IncomeEdit />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/personalInfoEdit">
+            <PersonalInfoEdit />
+          </ProtectedRoute>
 
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
