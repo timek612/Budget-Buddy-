@@ -9,7 +9,7 @@ const calculationReducer = (state = {}, action) => {
     }
 }
 
-const userParameterReducer = (state = [], action) => {
+const userParameterReducer = (state = {}, action) => {
     switch(action.type) {
         case 'SET_USER_MONEY_PARAMETERS':
             return action.payload

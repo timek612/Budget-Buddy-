@@ -10,10 +10,14 @@ function EditProfile () {
     const history = useHistory()
 
     const personalClicked = () => {
+
         history.push('/personalInfoEdit')
     }
 
     const incomeClicked = () => {
+        dispatch({
+            type: 'FETCH_USER_PARAMETERS'
+          })
         history.push('/incomeEdit')
     }
     

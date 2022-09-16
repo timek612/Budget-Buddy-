@@ -1,20 +1,19 @@
 import './IncomeEdit.css'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 function IncomeEdit () {
-    const moneyParams = useSelector((store) => store.moneyReducer.userParameterReducer[0])
-    useEffect(() => {
-        dispatch({
-          type: 'FETCH_USER_PARAMETERS'
-        })
-      }, [])
+    const dispatch = useDispatch()
+    const history = useHistory()
+    
+      
+    const moneyParams = useSelector((store) => store.moneyReducer.userParameterReducer)
 
     const userId = useSelector((store) => store.user.id)
-    
-    const dispatch = useDispatch()
+    console.log(moneyParams)
 
-    const [userIncome, setUserIncome] = useState('');
-    const [savings, setSavings] = useState('');
+    const [userIncome, setUserIncome] = useState(moneyParams.income);
+    const [savings, setSavings] = useState(moneyParams.savings_amount);
     
     // console.log(moneyParams);
 
@@ -24,10 +23,18 @@ function IncomeEdit () {
             payload:{ userIncome,
             savings }
         })
+        history.push('/user')
     }
     
+    // useEffect(() => {
+    //     dispatch({
+    //       type: 'FETCH_USER_PARAMETERS'
+    //     })
+
+    //   }, [dispatch])
     return (
         <div>
+
         <h1 className="recurringHeader">Edit Income</h1>
             <div className='recurringInputs'>
             <input type="number" placeholder="Annual Income*"

@@ -5,7 +5,8 @@ import axios from 'axios';
 function* fetchUserParameters () {
     try {
         let response = yield axios.get('/money')
-        yield put({type: 'SET_USER_MONEY_PARAMETERS', payload:response.data})
+
+        yield put({type: 'SET_USER_MONEY_PARAMETERS', payload:response.data[0]})
     }
     catch {
         console.log('MONEY SAGA: error in getting user money parameters');

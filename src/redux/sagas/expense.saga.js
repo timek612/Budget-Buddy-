@@ -1,4 +1,4 @@
-import { put, takeLatest, takeEvery } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery, take } from 'redux-saga/effects';
 import axios from 'axios';
 import { useDispatch } from 'react-redux'
 
@@ -60,12 +60,24 @@ function* newExpense (action) {
     }
 }
 
+function* getChartData () {
+    try {
+        let response = yield axios.get('/money/chartData')
+        // console.log(response.data);
+        yield put({type: 'SET_USER_CHART_DATA', payload: response.data})
+    }   
+    catch {
+        console.log('MONEY SAGA: error in getting chart data');
+    }
+}
+
 function* expenseSaga () {
     yield takeEvery ('GET_RECURRING', getRecurringExpenses);
     yield takeEvery ('GET_INDIVIDUAL', getIndividual)
     yield takeEvery ('NEW_EXPENSE', newExpense)
     yield takeEvery ('DELETE_EXPENSE', deleteExpense)
     yield takeEvery ('EDITED_EXPENSE', editExpense)
+    yield takeEvery ('GET_CHART_DATA', getChartData)
 }
 
 export default expenseSaga;

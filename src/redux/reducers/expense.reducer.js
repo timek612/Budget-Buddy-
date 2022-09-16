@@ -23,7 +23,18 @@ const currentExpense = (state = {}, action) => {
     }
 }
 
+const chartData = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_USER_CHART_DATA':
+            console.log(action.payload);
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     expenseReducer,
-    currentExpense
+    currentExpense,
+    chartData
   });

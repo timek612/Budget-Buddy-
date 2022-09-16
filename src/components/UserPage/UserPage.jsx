@@ -18,6 +18,9 @@ function UserPage() {
   useEffect(() => {
     dispatch({
       type: 'GET_ALLOWANCE'
+    }),
+    dispatch({
+      type: 'GET_CHART_DATA'
     })
   }, [])
 

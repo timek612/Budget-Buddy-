@@ -371,4 +371,24 @@ router.get('/', (req, res) => {
 
 })
 
+router.get('/chartData', (req, res) => {
+  let userId = req.user.id
+
+  let queryText = `
+  SELECT "category_id", SUM("expenses".cost) FROM "expenses"
+  WHERE "user_id" = $1
+  GROUP BY "category_id";
+  `;
+
+  pool.query(queryText, [userId])
+  .then(response => {
+    console.log(response.rows);
+    res.send(response.rows)
+  })
+  .catch(err => {
+    console.log(err);
+    res.sendStatus(200)
+  })
+})
+
 module.exports = router;
