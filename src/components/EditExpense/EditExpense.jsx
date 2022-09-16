@@ -2,6 +2,7 @@ import './EditExpense.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { Snackbar } from "@material-ui/core"
 function EditExpense() {
     const expense = useSelector((store) => store.expenseReducer.currentExpense)
     console.log(expense);
@@ -22,6 +23,7 @@ function EditExpense() {
 
     const saveEditedExpense = () => {
         let id = expense.id
+        setOpen(true)
         dispatch ({
             type: 'EDITED_EXPENSE',
             payload: {
@@ -34,7 +36,21 @@ function EditExpense() {
 
             }
         })
-        history.push('/individualExpenses')
+        if (recurring === false) {
+            history.push('/individualExpenses')
+        }
+        else {
+            history.push('/recurringExpenses')
+        }
+        
+    }
+
+    const [open, setOpen] = useState(false)
+    const handleClose = (event, reason) => {
+        if(reason === 'clickaway') {
+            return
+        }
+        setOpen(false)
     }
 
 
@@ -97,6 +113,11 @@ function EditExpense() {
             </div>
             <button id='editSaveButton' onClick={() => saveEditedExpense()}>Save</button>
             <button id='editCancelButton'>Cancel</button>
+            <Snackbar message='Successfully edited expense!'
+            className='Snackbar'
+            autoHideDuration={3000}
+            open={open}
+            onClose={handleClose}/>
 
         </div>
     )

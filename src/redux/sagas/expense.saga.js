@@ -8,7 +8,7 @@ function* editExpense (action) {
         console.log(action.payload);
         yield axios.put(`/money/editExpense/${action.payload.id}`, action.payload)
         yield axios.put('/expense', action.payload)
-        yield put({type: 'GET_INDIVIDUAL'})
+        // yield put({type: 'GET_INDIVIDUAL'})
     }
     catch {
         console.log('EXPENSE SAGA: error in editing expense');

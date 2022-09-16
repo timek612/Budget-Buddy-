@@ -1,4 +1,7 @@
-
+.Snackbar {
+    background-color: lightgreen;
+    /* color: red; */
+}
 
 .personalInput {
     display: inline-block;

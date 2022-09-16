@@ -39,14 +39,31 @@ function UserPage() {
   return (
     <div className="container">
       <h2>Welcome, {user.firstname}!</h2>
-      <div id='allowanceDiv' onClick={() => changeAllowanceRange()}>
-        {displayedAllowance === 1 ?
-         <div>${allowances.dailyAllowance}<p className='allowanceText'>for today</p></div> 
+      <div id='allowanceDiv'>
+        {displayedAllowance === 1 ?<>
+         <div>${allowances.dailyAllowance}<p className='allowanceText'>for today</p></div>
+          <div>
+            <button onClick={() => setDisplayedAllowance(2)}>Weekly</button> <></>
+            <button onClick={() => setDisplayedAllowance(3)}>Monthly</button>
+          </div> 
+         </>
          :
-          displayedAllowance === 2 ?
+          displayedAllowance === 2 ?<>
            <div>${allowances.weeklyAllowance}<p className='allowanceText'>for this week</p></div> 
+           <div>
+              <button onClick={() => setDisplayedAllowance(1)}>Daily</button> <></>
+              <button onClick={() => setDisplayedAllowance(3)}>Monthly</button>
+           </div>
+           </>
            :
-            <div>${allowances.monthlyAllowance}<p className='allowanceText'>for this month</p></div>}
+           <>
+            <div>${allowances.monthlyAllowance}<p className='allowanceText'>for this month</p></div>
+            <div>
+                <button onClick={() => setDisplayedAllowance(1)}>Daily</button> <></>
+                <button onClick={() => setDisplayedAllowance(2)}>Weekly</button>
+            </div>
+
+            </>}
       </div>
 
     </div>

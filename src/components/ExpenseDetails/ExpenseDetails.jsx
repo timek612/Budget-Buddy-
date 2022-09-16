@@ -1,6 +1,8 @@
 import { useHistory, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { Snackbar } from "@material-ui/core"
+
 function ExpenseDetails () {
 
     const history = useHistory()
@@ -20,17 +22,27 @@ function ExpenseDetails () {
     }
 
     const deleteExpense = () => {
+        setOpen(true)
         console.log(expense.id);
         dispatch ({
             type: 'DELETE_EXPENSE',
             payload: expense.id
         })
-        history.push('/individualExpenses')
+        history.push('/individualExpenses')// why is this interfering 
+        
     }
    
 
     const sendBack = () => {
         history.push('/individualExpenses')
+    }
+
+    const [open, setOpen] = useState(false)
+    const handleClose = (event, reason) => {
+        if(reason === 'clickaway') {
+            return
+        }
+        setOpen(false)
     }
     
     return (
@@ -45,6 +57,14 @@ function ExpenseDetails () {
         </div>
         <button onClick={() => editExpense()}>Edit</button>
         <button onClick={() => deleteExpense()}>Delete</button>
+        
+        <Snackbar 
+        message='Expense deleted!'
+        autoHideDuration={3000}
+        open={open}
+        onClose={handleClose}
+        />
+
         </div>
     )
 }

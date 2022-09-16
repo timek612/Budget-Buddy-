@@ -3,6 +3,8 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
+import { Snackbar } from "@material-ui/core"
+
 
 
 function NewExpense () {
@@ -30,6 +32,7 @@ function NewExpense () {
 
     const handleAdd = () => {
         console.log('added');
+        setOpen(true)
         dispatch ({
             type: 'NEW_EXPENSE',
             payload: {
@@ -46,6 +49,16 @@ function NewExpense () {
         setTotal('')
         setType('initial')
     }
+
+    const [open, setOpen] = useState(false)
+    const handleClose = (event, reason) => {
+        if(reason === 'clickaway') {
+            return
+        }
+        setOpen(false)
+    }
+
+  
 
     return (
         <>
@@ -122,8 +135,13 @@ function NewExpense () {
 
 
             </div>
-            <button id='plusButton' onClick={() => handleAdd()}>+</button>
+            <button id='plusButton' onClick={() => handleAdd()} >+</button>
             <button id='recurringNextBtn' onClick={() => handleHome()}>Home</button>
+            <Snackbar message='Expense added!'
+            className='Snackbar'
+            autoHideDuration={3000}
+            open={open}
+            onClose={handleClose}/>
         </>
     )
 }

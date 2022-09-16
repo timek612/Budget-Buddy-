@@ -8,6 +8,7 @@ import {
 
 import { useDispatch, useSelector } from 'react-redux';
 
+import '@fontsource/roboto';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
@@ -33,6 +34,7 @@ import RecurringSetup from '../RecurringSetup/RecurringSetup';
 import ThankYou from '../ThankYou/ThankYou';
 import PersonalInfoEdit from '../PersonalInfoEdit/PersonalInfoEdit';
 import IncomeEdit from '../IncomeEdit/IncomeEdit';
+import MuiSnackbar from '../MuiSnackBar';
 
 import './App.css';
 
@@ -125,6 +127,8 @@ function App() {
           <ProtectedRoute exact path="/personalInfoEdit">
             <PersonalInfoEdit />
           </ProtectedRoute>
+
+          {/* <MuiSnackbar /> */}
 
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
