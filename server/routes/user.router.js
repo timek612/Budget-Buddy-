@@ -145,6 +145,8 @@ router.get('/getUserInfo', (req, res) => {
   })
 })
 
+
+
 // Handles login form authenticate/login POST
 // userStrategy.authenticate('local') is middleware that we run on this route
 // this middleware will run our POST if successful
@@ -159,5 +161,32 @@ router.post('/logout', (req, res) => {
   req.logout();
   res.sendStatus(200);
 });
+
+router.post('/updatePersonalInfo', (req, res) => {
+  console.log(req.body);
+  let userId = req.user.id
+
+  let queryText = `
+  UPDATE "user"
+  SET "firstname" = $1, "lastname" = $2, "age" = $3
+  WHERE "id" = $4;
+  `;
+
+  let queryValues = [
+    req.body.firstName,
+    req.body.lastName,
+    req.body.age,
+    userId
+  ]
+
+  pool.query(queryText, queryValues)
+  .then(response => {
+    res.sendStatus(200)
+  })
+  .catch(err => {
+    console.log(err);
+    res.sendStatus(500)
+  })
+})
 
 module.exports = router;

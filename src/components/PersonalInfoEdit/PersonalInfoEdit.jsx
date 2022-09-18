@@ -16,22 +16,24 @@ function PersonalInfoEdit() {
         dispatch({
             type: 'UPDATED_PERSONAL_INFO',
             payload: {
-                
+                firstName,
+                lastName,
+                age
             }
         })
     }
 
     return (
         <div>
-            {userInfo && userInfo.map(userInfo => {
+
                 
-                return (
+
                 <div key={userInfo.firstname}>
                 <h1 className="recurringHeader">Edit Profile Info</h1>
                 <p>{userInfo.firstName}</p>
                 <input type="text" placeholder="First name*"
                     className='personalInput'
-                    value={userInfo.firstname}
+                    value={firstName}
                     required
                     onChange={(event) => setFirstName(event.target.value)}
                 />
@@ -40,7 +42,7 @@ function PersonalInfoEdit() {
     
                 <input type="text" placeholder="Last name*"
                     className='personalInput'
-                    value={userInfo.lastname}
+                    value={lastName}
                     required
                     onChange={(event) => setLastName(event.target.value)}
                 />
@@ -49,7 +51,7 @@ function PersonalInfoEdit() {
     
                 <input type="number" placeholder="Age*"
                     className='personalInput'
-                    value={userInfo.age}
+                    value={age}
                     required
                     onChange={(event) => setAge(event.target.value)}
                 />
@@ -59,8 +61,8 @@ function PersonalInfoEdit() {
                 <button id='updateBtn' onClick={() => updateUserInfo()}>Update</button>
                  
                 </div>
-                )
-            }) }
+                
+            
             
 
         </div>

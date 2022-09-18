@@ -33,8 +33,18 @@ const chartData = (state = [], action) => {
     }
 }
 
+const snackbarReducer = (state = [], action) => {
+    switch(action.type) {
+        case 'SNACKBAR_MESSAGE':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     expenseReducer,
     currentExpense,
-    chartData
+    chartData,
+    snackbarReducer
   });

@@ -18,6 +18,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 
 
+
 const useStyles = makeStyles({
   list: {
     width: 200,
@@ -51,7 +52,7 @@ const history = useHistory()
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
+      <List className='goon'>
         {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
@@ -84,12 +85,18 @@ const history = useHistory()
             <LogOutButton className="navLink" />
 
       </List>
+      <Divider />
+      <List>
+        <button className='navLink'>Reset Daily</button>
+        <button className='navLink'>Reset Weekly</button>
+        <button className='navLink'>Reset Monthly</button>
+      </List>
     </div>
   );
 
   return (
     <div id='hamburgerDiv'>
-      {['left'].map((anchor) => (
+      {['MENU'].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
           <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>

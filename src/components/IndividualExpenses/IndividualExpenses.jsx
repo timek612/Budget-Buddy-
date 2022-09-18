@@ -1,18 +1,27 @@
 import { useHistory } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './IndividualExpenses.css'
+import { Snackbar } from "@material-ui/core"
 
 function IndividualExpenses () {
     const history = useHistory()
     const dispatch = useDispatch()
     const individualExpenses = useSelector((store) => store.expenseReducer.expenseReducer)
-    console.log(individualExpenses);
+    const snackbar = useSelector((store) => store.expenseReducer.snackbarReducer.message)
+    console.log(snackbar);
+    // console.log(individualExpenses);
     
     useEffect(() => {
         dispatch({
           type: 'GET_INDIVIDUAL'
         })
+        if(snackbar === true) {
+            setOpen(true)
+        }
+        else if(snackbar === false) {
+            setOpen2(true)
+        }
       }, [])
 
     const recurring = () => {
@@ -27,6 +36,22 @@ function IndividualExpenses () {
         })
         history.push(`/expenseDetails/${expense.id}`)
 
+    }
+
+    const [open, setOpen] = useState(false) //edit message
+    const handleClose = (event, reason) => {
+        if(reason === 'clickaway') {
+            return
+        }
+        setOpen(false)
+    }
+
+    const [open2, setOpen2] = useState(false) //delete message
+    const handleClose2 = (event, reason) => {
+        if(reason === 'clickaway') {
+            return
+        }
+        setOpen2(false)
     }
     
     return (
@@ -46,7 +71,19 @@ function IndividualExpenses () {
                 )
             })}
         </section>
+        <Snackbar message='Expense edited!'
+            className='Snackbar'
+            autoHideDuration={3000}
+            open={open}
+            onClose={handleClose}/>
+
+            <Snackbar message='Expense deleted!'
+            className='Snackbar'
+            autoHideDuration={3000}
+            open={open2}
+            onClose={handleClose2}/>
         </div>
+        
 
     )
 }

@@ -22,13 +22,19 @@ function ExpenseDetails () {
     }
 
     const deleteExpense = () => {
-        setOpen(true)
+
         console.log(expense.id);
         dispatch ({
             type: 'DELETE_EXPENSE',
             payload: expense.id
         })
-        history.push('/individualExpenses')// why is this interfering 
+        dispatch({
+            type:'SNACKBAR_MESSAGE',
+            payload: {
+                message: false
+            }
+        })
+        history.push('/individualExpenses')
         
     }
    

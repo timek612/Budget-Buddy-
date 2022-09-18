@@ -1,3 +1,6 @@
 #hamburgerDiv {
     display: inline-block;
+    position: absolute;
+    top: 17px;
 }
+

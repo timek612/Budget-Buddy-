@@ -29,16 +29,27 @@ function* fetchPersonalInfo() {
     // console.log('FETCHING');
     let response = yield axios.get('/api/user/getUserInfo')
     // console.log(response.data[0]);
-    yield put({type:'SET_USER_PERSONAL_INFO', payload: response.data})
+    yield put({type:'FETCH_USER'})
   }
   catch {
     console.log('USER SAGA: error in retrieving user personal info');
   }
 }
 
+function* updatePersonalInfo(action) {
+  try {
+    yield axios.post('/api/user/updatePersonalInfo', action.payload)
+    yield fetchPersonalInfo()
+  }
+  catch {
+    console.log('USER SAGA: error in updating personal info');
+  }
+}
+
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
   yield takeEvery('FETCH_USER_PERSONAL_INFO', fetchPersonalInfo)
+  yield takeEvery('UPDATED_PERSONAL_INFO', updatePersonalInfo)
 }
 
 export default userSaga;

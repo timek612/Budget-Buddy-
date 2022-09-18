@@ -23,7 +23,7 @@ function EditExpense() {
 
     const saveEditedExpense = () => {
         let id = expense.id
-        setOpen(true)
+        
         dispatch ({
             type: 'EDITED_EXPENSE',
             payload: {
@@ -34,6 +34,12 @@ function EditExpense() {
                 id,
                 recurring
 
+            }
+        })
+        dispatch ({
+            type: 'SNACKBAR_MESSAGE',
+            payload: {
+                message: true
             }
         })
         if (recurring === false) {

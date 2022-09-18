@@ -71,6 +71,10 @@ function* getChartData () {
     }
 }
 
+function* getAllExpenses () {
+    
+}
+
 function* expenseSaga () {
     yield takeEvery ('GET_RECURRING', getRecurringExpenses);
     yield takeEvery ('GET_INDIVIDUAL', getIndividual)
@@ -78,6 +82,7 @@ function* expenseSaga () {
     yield takeEvery ('DELETE_EXPENSE', deleteExpense)
     yield takeEvery ('EDITED_EXPENSE', editExpense)
     yield takeEvery ('GET_CHART_DATA', getChartData)
+    yield takeEvery ('GET_ALL_EXPENSES', getAllExpenses)
 }
 
 export default expenseSaga;

@@ -3,6 +3,7 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import './UserPage.css'
+import BarChart from '../Chart/Chart';
 
 function UserPage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
@@ -21,6 +22,9 @@ function UserPage() {
     }),
     dispatch({
       type: 'GET_CHART_DATA'
+    }),
+    dispatch({
+      type: 'GET_ALL_EXPENSES'
     })
   }, [])
 
@@ -65,7 +69,7 @@ function UserPage() {
 
             </>}
       </div>
-
+          {/* <BarChart /> */}
     </div>
   )
 }
