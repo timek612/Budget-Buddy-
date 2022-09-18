@@ -11,6 +11,9 @@ const userReducer = (state = {}, action) => {// this is only one user at a time
   }
 };
 
+
+
 // user will be on the redux state at:
 // state.user
 export default userReducer;
+

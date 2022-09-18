@@ -18,7 +18,17 @@ const userParameterReducer = (state = {}, action) => {
     }
 }
 
+const personalInfoReducer = (state = [], action) => {
+    switch (action.type) {
+      case 'SET_USER_PERSONAL_INFO':
+        return action.payload;
+      default:
+        return state;
+    }
+  }
+
 export default combineReducers({
     calculationReducer,
-    userParameterReducer
+    userParameterReducer,
+    personalInfoReducer
   });
