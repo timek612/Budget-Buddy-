@@ -63,7 +63,7 @@ function RecurringExpenses () {
                         <p>{expense.date}</p>
                         <p>{expense.description}</p>
                         <p>{expense.category_type}</p>
-                        <p>{expense.cost}</p>
+                        <p>${expense.cost}</p>
                     </div>
                 )
             })}

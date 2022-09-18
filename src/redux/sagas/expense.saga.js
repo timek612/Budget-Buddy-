@@ -72,7 +72,14 @@ function* getChartData () {
 }
 
 function* getAllExpenses () {
-    
+    try {
+        let response = yield axios.get('/expense/getAllExpenses')
+        // console.log(response.data);
+        yield put({type: 'STORE_ALL_EXPENSES', payload: response.data})
+    }
+    catch {
+        console.log('EXPENSE SAGA: error in getting ALL expenses');
+    }
 }
 
 function* expenseSaga () {

@@ -45,6 +45,7 @@ const BarChart = () => {
     let education = 0;
     let entertainment = 0;
     let donations = 0;
+
     
 
     const [chartOptions, setChartOptions] = useState ({})
@@ -92,6 +93,7 @@ const BarChart = () => {
                 break;
         }
     })}
+    
 
     useEffect(() => {
         setChartData({
@@ -154,12 +156,22 @@ const BarChart = () => {
                 }
             }
         })
+        console.log(chartData.datasets);
     }, [])
-
+    
+    
+        
+    
     return (
+        <>
         <div>
             <Pie options={chartOptions} data={chartData}/>
         </div>
+        <div>
+            {/* {chartData ? chartData.datasets[0].label : <p>goon</p>} */}
+
+        </div>
+        </>
 
     )
 }

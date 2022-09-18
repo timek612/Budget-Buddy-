@@ -1,9 +1,11 @@
 .recurringExpenseDiv {
     width: auto;
     height: auto;
-    border: solid black 1px;
+    border: solid rgb(0, 175, 0) 2px;
     margin: 20px; 
     padding: 20px;
+    border-radius: 10px;
+    background-color: lightgreen;
 }
 
 .recurringHeader {

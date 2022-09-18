@@ -135,8 +135,10 @@ function NewExpense () {
 
 
             </div>
-            <button id='plusButton' onClick={() => handleAdd()} >+</button>
-            <button id='recurringNextBtn' onClick={() => handleHome()}>Home</button>
+            <div className='editBtns'>
+            <button id='plusButton' onClick={() => handleAdd()} >Add</button>
+            </div>
+
             <Snackbar message='Expense added!'
             className='Snackbar'
             autoHideDuration={3000}

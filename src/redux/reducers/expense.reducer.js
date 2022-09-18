@@ -42,9 +42,19 @@ const snackbarReducer = (state = [], action) => {
     }
 }
 
+const allExpenses = (state = [], action) => {
+    switch(action.type) {
+        case 'STORE_ALL_EXPENSES':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 export default combineReducers({
     expenseReducer,
     currentExpense,
     chartData,
-    snackbarReducer
+    snackbarReducer,
+    allExpenses
   });

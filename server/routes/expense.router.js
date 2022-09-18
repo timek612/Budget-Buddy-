@@ -216,6 +216,26 @@ router.get('/recurring', (req, res) => {
         })
 })
 
+router.get('/getAllExpenses', (req, res) => {
+    let userId = req.user.id
+
+    let queryText = `
+    SELECT "description", "date", "cost", "expenses".id, "category_type", "recurring" FROM "expenses"
+    JOIN "category"
+    ON "expenses".category_id = "category".id
+    WHERE "user_id" = $1 AND "category_id" = "category".id;
+    `;
+
+    pool.query(queryText, [userId])
+    .then(response => {
+        res.send(response.rows)
+    })
+    .catch(err => {
+        console.log(err);
+        res.sendStatus(500)
+    })
+})
+
 
 
 module.exports = router;

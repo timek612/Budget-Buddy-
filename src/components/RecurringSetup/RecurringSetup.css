@@ -4,12 +4,14 @@
 }
 
 #plusButton {
-    position: absolute;
+    /* position: absolute;
     bottom: 0;
     margin-left: 188px;
     margin-bottom: 40px;
     width: 30px;
-    height: 30px;
+    height: 30px; */
+    margin-top: 30px;
+
    
 }
 

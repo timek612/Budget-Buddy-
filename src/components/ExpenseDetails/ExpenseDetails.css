@@ -1,0 +1,14 @@
+.editBtns {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.btns {
+    margin: 10px;
+    width: 70px;
+}
+
+#backBtn {
+    margin-left: 22px;
+}
