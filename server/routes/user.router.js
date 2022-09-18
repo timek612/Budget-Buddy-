@@ -127,6 +127,24 @@ router.post('/updateMoney', (req, res) => {
 
 })
 
+router.get('/getUserInfo', (req, res) => {
+  let userId = req.user.id
+
+  let queryText = `
+  SELECT "firstname", "lastname", "age" FROM "user"
+  WHERE "id" = $1;
+  `;
+
+  pool.query(queryText, [userId])
+  .then(response => {
+    res.send(response.rows)
+  })
+  .catch(err => {
+    console.log(err);
+    res.sendStatus(500)
+  })
+})
+
 // Handles login form authenticate/login POST
 // userStrategy.authenticate('local') is middleware that we run on this route
 // this middleware will run our POST if successful

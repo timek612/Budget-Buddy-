@@ -10,6 +10,9 @@ function EditProfile () {
     const history = useHistory()
 
     const personalClicked = () => {
+        dispatch({
+            type: 'FETCH_USER_PERSONAL_INFO'
+        })
 
         history.push('/personalInfoEdit')
     }

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 
 // worker Saga: will be fired on "FETCH_USER" actions
 function* fetchUser() {
@@ -24,8 +24,21 @@ function* fetchUser() {
   }
 }
 
+function* fetchPersonalInfo() {
+  try {
+    // console.log('FETCHING');
+    let response = yield axios.get('/api/user/getUserInfo')
+    // console.log(response.data[0]);
+    yield put({type:'SET_USER_PERSONAL_INFO', payload: response.data})
+  }
+  catch {
+    console.log('USER SAGA: error in retrieving user personal info');
+  }
+}
+
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
+  yield takeEvery('FETCH_USER_PERSONAL_INFO', fetchPersonalInfo)
 }
 
 export default userSaga;

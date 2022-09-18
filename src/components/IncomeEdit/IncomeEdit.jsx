@@ -9,7 +9,7 @@ function IncomeEdit () {
       
     const moneyParams = useSelector((store) => store.moneyReducer.userParameterReducer)
 
-    const userId = useSelector((store) => store.user.id)
+
     console.log(moneyParams)
 
     const [userIncome, setUserIncome] = useState(moneyParams.income);
