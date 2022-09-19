@@ -2,6 +2,11 @@ import './RecurringSetup.css'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+
 
 function RecurringSetup() {
     const history = useHistory()
@@ -59,8 +64,8 @@ function RecurringSetup() {
                 />
 
                 <br />
-
-                <select name="category" className='personalInput' 
+                <div className='test'>
+                <Select name="category" 
                 value={category} onChange={dropDownChange}
                 >
                     <option value="initial">Select a Category</option>
@@ -77,8 +82,10 @@ function RecurringSetup() {
                     <option value={11}>Education</option>
                     <option value={12}>Entertainment</option>
                     <option value={13}>Donations</option>
-                </select>
+                </Select>
+                </div>
 
+                <br />
                 <br />
 
                 <input type="date" placeholder="Date*"
@@ -101,7 +108,9 @@ function RecurringSetup() {
 
 
             </div>
-            <button id='plusButton' onClick={() => handleAdd()}>+</button>
+            <div className='editBtns'>
+            <button className='plusButton' onClick={() => handleAdd()}>+</button>
+            </div>
             <button id='recurringNextBtn' onClick={() => handleNext()}>Next</button>
         </>
     )

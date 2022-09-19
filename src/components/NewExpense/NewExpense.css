@@ -12,6 +12,25 @@
     width: 225px;
 }
 
+
 #newExpenseHeader {
     text-align: center;
+}
+
+#badBoy {
+    background-color: white;
+}
+
+.test {
+    width: 200px;
+    text-align: center;
+    padding: 10px;
+    display: block;
+    box-shadow: 2px 2px 5px gray;
+    display: inline-block;
+    margin-left: 84px;
+    margin-right: auto;
+    background-color: white;
+    border: 1px solid black;
+    
 }

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Snackbar } from "@material-ui/core"
+import Select from '@material-ui/core/Select';
 function EditExpense() {
     const expense = useSelector((store) => store.expenseReducer.currentExpense)
     console.log(expense);
@@ -76,7 +77,8 @@ function EditExpense() {
 
                 <br />
 
-                <select name="category" className='personalInput'
+                <div className='test'>
+                <Select name="category" 
                     value={category} onChange={dropDownChange}
                 >
                     <option value="initial">Select a Category</option>
@@ -93,8 +95,10 @@ function EditExpense() {
                     <option value={11}>Education</option>
                     <option value={12}>Entertainment</option>
                     <option value={13}>Donations</option>
-                </select>
+                </Select>
+                </div>
 
+                <br />
                 <br />
 
                 <input type="date" placeholder="Date*"

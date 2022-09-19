@@ -4,6 +4,13 @@ import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { Snackbar } from "@material-ui/core"
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+import SimpleMenu from '../DropdownMenu/DropdownMenu';
+import Select from '@material-ui/core/Select';
+
+
 
 
 
@@ -58,6 +65,7 @@ function NewExpense () {
         setOpen(false)
     }
 
+    
   
 
     return (
@@ -75,28 +83,9 @@ function NewExpense () {
 
                 />
 
-                <br />
-                <br />
-
-                <select name="category" className='personalInput' 
-                id='newExpenseDropDown'
-                value={category} onChange={dropDownChange}
-                >
-                    <option value="initial">Select a Category</option>
-                    <option value={1}>Housing</option>
-                    <option value={2}>Transportation</option>
-                    <option value={3}>Food</option>
-                    <option value={4}>Utilities</option>
-                    <option value={5}>Clothing</option>
-                    <option value={6}>Medical</option>
-                    <option value={7}>Insurance</option>
-                    <option value={8}>Household</option>
-                    <option value={9}>Lifestyle</option>
-                    <option value={10}>Debt</option>
-                    <option value={11}>Education</option>
-                    <option value={12}>Entertainment</option>
-                    <option value={13}>Donations</option>
-                </select>
+               
+                
+                {/* <SimpleMenu /> */}
 
                 <br />
                 <br />
@@ -123,20 +112,49 @@ function NewExpense () {
                 <br />
                 <br />
 
-                <select name="recurringOrIndividual" className='personalInput' 
-                id='recurringOrIndividual'
+                <div className='test'>
+                <Select name="category" 
+                // id='newExpenseDropDown'
+                value={category} onChange={dropDownChange}
+                >
+                    <option value="initial">Select a Category</option>
+                    <option value={1}>Housing</option>
+                    <option value={2}>Transportation</option>
+                    <option value={3}>Food</option>
+                    <option value={4}>Utilities</option>
+                    <option value={5}>Clothing</option>
+                    <option value={6}>Medical</option>
+                    <option value={7}>Insurance</option>
+                    <option value={8}>Household</option>
+                    <option value={9}>Lifestyle</option>
+                    <option value={10}>Debt</option>
+                    <option value={11}>Education</option>
+                    <option value={12}>Entertainment</option>
+                    <option value={13}>Donations</option>
+                </Select>
+                </div>
+
+                <br />
+                <br />
+                <br />
+                
+
+                <div className='test'>
+                <Select name="recurringOrIndividual" 
+                // id='badBoy'
                 value={type} onChange={typeChange}
                 >
                     <option value="initial">Select a Type</option>
                     <option value={true}>Recurring</option>
                     <option value={false}>Individual</option>
                    
-                </select>
+                </Select>
+                </div>
 
 
             </div>
             <div className='editBtns'>
-            <button id='plusButton' onClick={() => handleAdd()} >Add</button>
+            <button className='plusButton' onClick={() => handleAdd()} >Add</button>
             </div>
 
             <Snackbar message='Expense added!'

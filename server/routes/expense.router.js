@@ -223,7 +223,8 @@ router.get('/getAllExpenses', (req, res) => {
     SELECT "description", "date", "cost", "expenses".id, "category_type", "recurring" FROM "expenses"
     JOIN "category"
     ON "expenses".category_id = "category".id
-    WHERE "user_id" = $1 AND "category_id" = "category".id;
+    WHERE "user_id" = $1 AND "category_id" = "category".id
+    ORDER BY "id" ASC;
     `;
 
     pool.query(queryText, [userId])
