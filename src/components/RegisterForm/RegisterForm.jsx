@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+//This page where the user enters their new username and password, which gets sent to a reducer to send to the DB later.
+
 function RegisterForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -18,9 +20,6 @@ function RegisterForm() {
       payload: {
         username: username,
         password: password,
-        // firstName: firstName,
-        // lastName: lastName,
-        // age: age
       },
     });
     history.push('/welcomePage')
@@ -58,42 +57,6 @@ function RegisterForm() {
           />
         </label>
       </div>
-      {/* <div>
-        <label htmlFor="firstName">
-          First Name:
-          <input
-            type="text"
-            name="firstName"
-            value={firstName}
-            required
-            onChange={(event) => setFirstName(event.target.value)}
-          />
-        </label>
-      </div> */}
-      {/* <div>
-        <label htmlFor="lastName">
-          Last Name:
-          <input
-            type="text"
-            name="lastName"
-            value={lastName}
-            required
-            onChange={(event) => setLastName(event.target.value)}
-          />
-        </label>
-      </div> */}
-      {/* <div>
-        <label htmlFor="age">
-          Age:
-          <input
-            type="number"
-            name="age"
-            value={age}
-            required
-            onChange={(event) => setAge(event.target.value)}
-          />
-        </label>
-      </div> */}
       <div>
         <input className="btn" type="submit" name="submit" value="Register" />
       </div>

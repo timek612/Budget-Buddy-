@@ -2,12 +2,11 @@ import './PersonalForm.css'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react'
-import axios from 'axios';
 
+//This is the user registration page that collect user information and dispatches to a SAGA.
 
 function PersonalForm() {
     const credentials = useSelector((store) => store.userData.registrationReducer)
-    const userData = useSelector((store) => store.userData.userData)
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -18,10 +17,7 @@ function PersonalForm() {
     const dispatch = useDispatch()
     const history = useHistory()
 
-
-
     const handleSubmit = (event) => {
-        // event.preventDefault();
 
         dispatch ({
             type: 'REGISTER',
@@ -36,15 +32,9 @@ function PersonalForm() {
             
         })
         
-        // dispatch ({
-            
-        // })
-      
-
         history.push('/userSubmissionPage')
     }
 
-    // console.log(username.username);
     return (
         <>
 

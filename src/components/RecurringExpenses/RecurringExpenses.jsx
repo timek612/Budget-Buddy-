@@ -5,11 +5,12 @@ import './RecurringExpenses.css'
 import { Snackbar } from "@material-ui/core"
 function RecurringExpenses () {
 
+    //This page retrieves and displays all of the users recurring expenses on the DOM
+
     const history = useHistory()
     const dispatch = useDispatch()
     const recurringExpenses = useSelector((store) => store.expenseReducer.expenseReducer)
     const snackbar = useSelector((store) => store.expenseReducer.snackbarReducer.message)
-    // console.log(recurringExpenses);
 
     useEffect(() => {
         dispatch({
@@ -28,7 +29,6 @@ function RecurringExpenses () {
     }
 
     const expenseClicked = (expense) => {
-        console.log('click');
         dispatch ({
             type: 'SET_EXPENSE',
             payload: expense

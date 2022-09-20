@@ -1,6 +1,7 @@
+//Nav at the top of the screen.
+//It conditional renders depending on if the user is logged in or not
 import React from 'react';
 import { Link } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 import Hamburger from '../Hamburger/Hamburger';
@@ -25,31 +26,6 @@ function Nav() {
         {user.id && (
           <>
           <Hamburger />
-            {/* <Link className='navLink' to="/newExpense">
-              New Expense
-            </Link>
-
-            <Link className='navLink' to="/individualExpenses">
-              Expenses
-            </Link>
-
-            <Link className='navLink' to="/chart">
-              Chart
-            </Link>
-
-            <Link className='navLink' to="/editProfile">
-              Edit Profile
-            </Link> */}
-
-            {/* <Link className="navLink" to="/user">
-              Home
-            </Link> */}
-
-            {/* <Link className="navLink" to="/info">
-              Info Page
-            </Link> */}
-
-            {/* <LogOutButton className="navLink" /> */}
           </>
         )}
         <Link to="/home">

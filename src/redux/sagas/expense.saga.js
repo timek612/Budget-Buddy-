@@ -1,23 +1,19 @@
-import { put, takeLatest, takeEvery, take } from 'redux-saga/effects';
+import { put, takeEvery, } from 'redux-saga/effects';
 import axios from 'axios';
-import { useDispatch } from 'react-redux'
 
 
-function* editExpense (action) {
+function* editExpense (action) {//Saga for editing an expense 
     try {
-        console.log(action.payload);
         yield axios.put(`/money/editExpense/${action.payload.id}`, action.payload)
         yield axios.put('/expense', action.payload)
-        // yield put({type: 'GET_INDIVIDUAL'})
     }
     catch {
         console.log('EXPENSE SAGA: error in editing expense');
     }
 }
 
-function* deleteExpense (id) {
+function* deleteExpense (id) {//Saga for deleting an expense
     try {
-        console.log(id);
         yield axios.put(`/money/${id.payload}`)
         yield axios.delete(`/expense/${id.payload}`)
         yield put({type: 'GET_INDIVIDUAL'})
@@ -27,12 +23,9 @@ function* deleteExpense (id) {
     }
 }
 
-function* getRecurringExpenses () {
-    
+function* getRecurringExpenses () {//Saga for retrieving recurring expenses
     try {
-
         const response = yield axios.get('/expense/recurring')
-        console.log('SENDING RECURRING');
         yield put({type: 'SEND_RECURRING_EXPENSES', payload: response.data})
     }
     catch {
@@ -40,10 +33,9 @@ function* getRecurringExpenses () {
     }
 }
 
-function* getIndividual () {
+function* getIndividual () {//Saga for retrieving individual expenses
     try {
         const response = yield axios.get('/expense/individual')
-        console.log('SENDING INDIVIDUAL');
         yield put({type: 'SEND_INDIVIDUAL_EXPENSES', payload: response.data})
     }
     catch {
@@ -51,7 +43,7 @@ function* getIndividual () {
     }
 }
 
-function* newExpense (action) {
+function* newExpense (action) {//Saga for creating a new expense
     try {
         yield axios.post('/expense', action.payload)
     }
@@ -60,10 +52,9 @@ function* newExpense (action) {
     }
 }
 
-function* getChartData () {
+function* getChartData () {//Saga for retrieving data for pie chart
     try {
         let response = yield axios.get('/money/chartData')
-        // console.log(response.data);
         yield put({type: 'SET_USER_CHART_DATA', payload: response.data})
     }   
     catch {
@@ -71,10 +62,9 @@ function* getChartData () {
     }
 }
 
-function* getAllExpenses () {
+function* getAllExpenses () {//Saga for retrieving all expenses for a user
     try {
         let response = yield axios.get('/expense/getAllExpenses')
-        // console.log(response.data);
         yield put({type: 'STORE_ALL_EXPENSES', payload: response.data})
     }
     catch {

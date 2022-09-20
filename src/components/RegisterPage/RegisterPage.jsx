@@ -1,5 +1,5 @@
 import React from 'react';
-
+//Page that is shown when the user is registering for the first time
 import { useHistory } from 'react-router-dom';
 import RegisterForm from '../RegisterForm/RegisterForm';
 

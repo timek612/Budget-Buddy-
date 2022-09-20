@@ -2,7 +2,7 @@ import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 
-function* fetchUserParameters () {
+function* fetchUserParameters () {//gets user money data they originally set up 
     try {
         let response = yield axios.get('/money')
 
@@ -18,7 +18,6 @@ function* moneyParameters (action) {// saga for the income post dispatch
 
     try {
         yield axios.post('/money', action.payload);
-        // yield axios.post('/money', test);
 
     }
     catch {
@@ -26,8 +25,7 @@ function* moneyParameters (action) {// saga for the income post dispatch
     }
 }
 
-function* newRecurringExpense (action) {
-    console.log(action);
+function* newRecurringExpense (action) {//saga for a new recurring expense
     try {
         yield axios.post('/money/recurring', action.payload);
     }
@@ -36,10 +34,9 @@ function* newRecurringExpense (action) {
     }
 }
 
-function* getAllowance () {
+function* getAllowance () {//saga that gets user allowances that display on user page
     try {
         let response = yield axios.get('/money/allowance')
-        console.log(response.data);
         yield put({type: 'SET_CALCULATIONS', payload: response.data})
     }
     catch {
@@ -47,9 +44,8 @@ function* getAllowance () {
     }
 }
 
-function* updateUserParams (action) {
+function* updateUserParams (action) {//saga that updates user income and savings amount
     try {
-        console.log(action.payload);
         yield axios.post('/api/user/updateMoney', action.payload)
     }
     catch {

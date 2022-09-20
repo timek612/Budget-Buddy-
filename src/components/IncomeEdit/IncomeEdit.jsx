@@ -1,21 +1,17 @@
+//This is the page where user can edit their income and savings amount
 import './IncomeEdit.css'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 function IncomeEdit () {
     const dispatch = useDispatch()
     const history = useHistory()
-    
       
     const moneyParams = useSelector((store) => store.moneyReducer.userParameterReducer)
-
-
-    console.log(moneyParams)
 
     const [userIncome, setUserIncome] = useState(moneyParams.income);
     const [savings, setSavings] = useState(moneyParams.savings_amount);
     
-    // console.log(moneyParams);
 
     const updateParams = () => {
         dispatch ({
@@ -26,12 +22,6 @@ function IncomeEdit () {
         history.push('/user')
     }
     
-    // useEffect(() => {
-    //     dispatch({
-    //       type: 'FETCH_USER_PARAMETERS'
-    //     })
-
-    //   }, [dispatch])
     return (
         <div>
 

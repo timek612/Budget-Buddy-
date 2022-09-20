@@ -1,3 +1,6 @@
+//This component was used as a template for my drop down menus.
+//Not actually being used, but used as information for building instead.
+
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';

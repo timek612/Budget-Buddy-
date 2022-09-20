@@ -9,9 +9,8 @@ function LogOutButton(props) {
   const logoutAndHome = () => {
     history.push('/logTfOut')
     dispatch({ type: 'LOGOUT' })
-    console.log('BREANSJBRJENAJNJN');
   }
-  
+  //Logout button in nav in drop down menu
   return (
     <button
       // This button shows up in multiple locations and is styled differently

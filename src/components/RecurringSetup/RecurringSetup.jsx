@@ -1,11 +1,11 @@
 import './RecurringSetup.css'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import React from 'react';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+
+//This page is the initial user registration recurring expense setup which dispatches new expenses to a SAGA
 
 
 function RecurringSetup() {
@@ -45,9 +45,6 @@ function RecurringSetup() {
         history.push('/thankYou')
     }
 
-    // console.log(category);
-    // console.log(date);
-    // console.log(total);
     return (
         <>
             <h1 id="title">Recurring Expenses</h1>

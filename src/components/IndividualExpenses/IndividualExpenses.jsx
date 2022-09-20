@@ -1,3 +1,4 @@
+//This page renders the users individual expenses
 import { useHistory } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,14 +10,13 @@ function IndividualExpenses () {
     const dispatch = useDispatch()
     const individualExpenses = useSelector((store) => store.expenseReducer.expenseReducer)
     const snackbar = useSelector((store) => store.expenseReducer.snackbarReducer.message)
-    console.log(snackbar);
-    // console.log(individualExpenses);
+    
     
     useEffect(() => {
         dispatch({
           type: 'GET_INDIVIDUAL'
         })
-        if(snackbar === true) {
+        if(snackbar === true) {//these statements are to determine which snackbar message to show on page load if coming from edit page. 
             setOpen(true)
         }
         else if(snackbar === false) {
@@ -57,7 +57,6 @@ function IndividualExpenses () {
     return (
         <div>
         <h1 className='recurringHeader'>Expenses</h1>
-        {/* <h4 onClick={() => expenseClicked()}>I'm an expense</h4> */}
         <button id='btnToRecurring' onClick={() => recurring()}>Recurring</button>
         <section id='list'>
         {individualExpenses.map(expense => {

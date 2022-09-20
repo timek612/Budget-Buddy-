@@ -1,3 +1,5 @@
+//This page is where you can edit existing expenses
+//Expense data is sent here on click of edit.
 import './EditExpense.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
@@ -25,7 +27,7 @@ function EditExpense() {
     const saveEditedExpense = () => {
         let id = expense.id
         
-        dispatch ({
+        dispatch ({//new values are sent to a SAGA
             type: 'EDITED_EXPENSE',
             payload: {
                 description,
@@ -37,7 +39,7 @@ function EditExpense() {
 
             }
         })
-        dispatch ({
+        dispatch ({//confirmation message
             type: 'SNACKBAR_MESSAGE',
             payload: {
                 message: true

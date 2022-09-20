@@ -1,3 +1,4 @@
+//Nothing fancy here. Just a filler page for registering.
 import './WelcomePage.css'
 import { useHistory } from 'react-router-dom'
 

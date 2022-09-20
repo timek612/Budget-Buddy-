@@ -5,18 +5,12 @@ import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Hamburger.css'
-import MenuIcon from '@material-ui/icons/Menu';
 
-
+//This component is for my menu dropdown.
 
 
 const useStyles = makeStyles({
@@ -29,7 +23,6 @@ const useStyles = makeStyles({
 });
 
 export default function TemporaryDrawer() {
-const history = useHistory() 
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false,
@@ -53,18 +46,6 @@ const history = useHistory()
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List className='goon'>
-        {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))} */}
 
             <Link className='navLink' to="/newExpense">
               New Expense

@@ -1,3 +1,6 @@
+//This page is where the pie chart with user expense data is showed. 
+//Data is sourced in and the chart dynamically changes depending on data.
+
 import React, {useState, useEffect} from "react";
 import { useSelector } from "react-redux";
 import { Chart as ChartJS,
@@ -50,7 +53,7 @@ const BarChart = () => {
 
     const [chartOptions, setChartOptions] = useState ({})
 
-    {userExpenseData.map(expenseData => {
+    {userExpenseData.map(expenseData => {//switch statement loops through expenses and assigns the data to certain variables depending on category
         switch(expenseData.category_id) {
             case 1:
                 housing = expenseData.sum
@@ -156,20 +159,15 @@ const BarChart = () => {
                 }
             }
         })
-        console.log(chartData.datasets);
     }, [])
     
-    
+    //^^^ all data for creating the chart
         
     
     return (
         <>
         <div>
             <Pie options={chartOptions} data={chartData}/>
-        </div>
-        <div>
-            {/* {chartData ? chartData.datasets[0].label : <p>goon</p>} */}
-
         </div>
         </>
 

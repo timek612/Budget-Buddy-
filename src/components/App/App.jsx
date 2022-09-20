@@ -1,3 +1,7 @@
+//This page is where everything lives. All components are imported here with client routes for navigation. 
+//The motherboard for my app.
+//All protected routes are routes that can only be accessed if the user is logged in.
+//Otherwise they get redirected to the login page.
 import React, { useEffect } from 'react';
 import {
   HashRouter as Router,
@@ -35,6 +39,7 @@ import ThankYou from '../ThankYou/ThankYou';
 import PersonalInfoEdit from '../PersonalInfoEdit/PersonalInfoEdit';
 import IncomeEdit from '../IncomeEdit/IncomeEdit';
 import MuiSnackbar from '../MuiSnackBar';
+import TechUsed from '../TechUsed/TechUsed';
 
 import './App.css';
 
@@ -95,7 +100,6 @@ function App() {
             <RecurringExpenses />
           </ProtectedRoute>
 
-          {/* I want this to be protected but I can't push unless auth */}
           <Route exact path="/welcomePage">
             <WelcomePage />
           </Route>
@@ -128,7 +132,9 @@ function App() {
             <PersonalInfoEdit />
           </ProtectedRoute>
 
-          {/* <MuiSnackbar /> */}
+          <ProtectedRoute exact path="/techUsed">
+            <TechUsed />
+          </ProtectedRoute>
 
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
@@ -143,7 +149,6 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
             exact
             path="/info"
           >

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
+//Page for registering a new user
 
 // CUSTOM COMPONENTS
 import RegisterForm from '../RegisterForm/RegisterForm';
@@ -16,12 +17,6 @@ function LandingPage() {
   return (
     <div className="container">
       <h2>{heading}</h2>
-
-      {/* <div className="grid"> */}
-        {/* <div className="grid-col grid-col_8"> */}
-          
-        {/* </div> */}
-        {/* <div className="grid-col grid-col_4"> */}
           <RegisterForm />
 
           <center>
@@ -31,8 +26,6 @@ function LandingPage() {
             </button>
           </center>
         </div>
-      // </div>
-    // </div>
   );
 }
 

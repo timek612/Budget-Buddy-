@@ -1,21 +1,15 @@
 import './NewExpense.css'
-import { useEffect } from 'react'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Snackbar } from "@material-ui/core"
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
-import SimpleMenu from '../DropdownMenu/DropdownMenu';
 import Select from '@material-ui/core/Select';
 
 
-
+//This is the page for creating a new expense. 
 
 
 function NewExpense () {
-    const history = useHistory()
     const dispatch = useDispatch()
 
     const [description, setDescription] = useState('');
@@ -23,10 +17,6 @@ function NewExpense () {
     const [date, setDate] = useState('')
     const [total, setTotal] = useState('')
     const [type, setType] = useState('')
-
-    const handleHome = () => {
-        history.push('/user')
-    }
     
     const dropDownChange = (e) => {
         setCategory(e.target.value)
@@ -83,9 +73,6 @@ function NewExpense () {
 
                 />
 
-               
-                
-                {/* <SimpleMenu /> */}
 
                 <br />
                 <br />

@@ -9,7 +9,7 @@ const calculationReducer = (state = {}, action) => {
     }
 }
 
-const userParameterReducer = (state = {}, action) => {
+const userParameterReducer = (state = {}, action) => {//stores users money parameters from DB 
     switch(action.type) {
         case 'SET_USER_MONEY_PARAMETERS':
             return action.payload
@@ -18,7 +18,7 @@ const userParameterReducer = (state = {}, action) => {
     }
 }
 
-const personalInfoReducer = (state = [], action) => {
+const personalInfoReducer = (state = [], action) => {//stores user personal information from the DB
     switch (action.type) {
       case 'SET_USER_PERSONAL_INFO':
         return action.payload;

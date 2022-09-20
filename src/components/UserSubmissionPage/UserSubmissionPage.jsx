@@ -1,3 +1,4 @@
+//Nothing fancy here. Just a filler page for registering.
 import { useHistory } from 'react-router-dom'
 import './UserSubmissionPage.css'
 function UserSubmissionPage () {

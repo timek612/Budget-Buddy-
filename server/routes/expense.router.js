@@ -2,10 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-router.post('/', (req, res) => {
-    console.log(req.body);
-    console.log(req.user);
-
+router.post('/', (req, res) => {// post of expenses. This post deposits new expenses into the DB.
     const description = req.body.description
     const category = Number(req.body.category)
     const date = req.body.date
@@ -30,33 +27,28 @@ router.post('/', (req, res) => {
     pool.query(queryText, queryValues)
         .then(response => {
 
-            if (type === 'true' || type === true) {
+            if (type === 'true' || type === true) {//this whole if/else statements determines if the expense is a one-time or recurring expense. The math changes depending on which one it is. 
+                //This if statement is if it is recurring.
                 let secondQueryText = `
             SELECT "savings_adjusted_income" FROM "money"
             WHERE "user_id" = $1;
             `;
             pool.query(secondQueryText, [userId])
             .then (response => {
-                console.log(response.rows[0].savings_adjusted_income);
-
                 let annualIncome = response.rows[0].savings_adjusted_income// S.A.I from money table
 
                 let recurringExpenseAnnualCost = (total * 12)// yearly cost for recurring expense
-                
-                console.log(recurringExpenseAnnualCost);
-                
+                                
                 annualIncome -= recurringExpenseAnnualCost// income - yearly cost 
                 
-                console.log(annualIncome);
-
                 let thirdQueryText = `
                 UPDATE "money"
                 SET "savings_adjusted_income" = $1
                 WHERE "user_id" = $2;
                 `;
+                //update money table with correct values
                 pool.query(thirdQueryText, [annualIncome, userId])
                 .then (response => {
-                    console.log(response);
                     res.sendStatus(200)
                 })
                 .catch (err => {
@@ -67,27 +59,24 @@ router.post('/', (req, res) => {
 
             })
             }
-            else {
+            else { //this statement is if the expense is a one-time expense.
                 let secondQueryText = `
                 SELECT "sum_of_expenses" FROM "money"
                 WHERE "user_id" = $1;
                 `;
                 pool.query(secondQueryText, [userId])
                 .then (response => {
-                    console.log(response.rows[0].sum_of_expenses);
                     let expensesSum = response.rows[0].sum_of_expenses
                     expensesSum += total;
-
-                    console.log(expensesSum);
 
                     let thirdQueryText = `
                     UPDATE "money"
                     SET "sum_of_expenses" = $1
                     WHERE "user_id" = $2;
                     `;
+                    //user money is updated with correct values
                     pool.query(thirdQueryText, [expensesSum, userId])
                     .then(response => {
-                        console.log(response);
                         res.sendStatus(200)
                     })
                     .catch(err => {
@@ -104,14 +93,13 @@ router.post('/', (req, res) => {
 
 })
 
-router.put('/', (req, res) => {
+router.put('/', (req, res) => {//PUT for editing expense information
     console.log('in edit expense');
     let description = req.body.description
     let date = req.body.date
     let category = Number(req.body.category)
     let total = req.body.total
     let expenseId = req.body.id
-    console.log(req.body);
 
     let queryText = `
     UPDATE "expenses"
@@ -138,10 +126,8 @@ router.put('/', (req, res) => {
         })
 })
 
-router.delete('/:id', (req, res) => {
-    console.log('in delete');
+router.delete('/:id', (req, res) => {//DELETE for deleting existing expense
     let expenseId = req.params.id
-    console.log(expenseId);
 
     let queryText = `
     DELETE FROM "expenses"
@@ -159,8 +145,7 @@ router.delete('/:id', (req, res) => {
         })
 })
 
-router.get('/individual', (req, res) => {
-    console.log('in individual expense');
+router.get('/individual', (req, res) => {//This route retrieves all one-time expenses from the DB
     let id = req.user.id
 
     let queryText = `
@@ -170,16 +155,13 @@ router.get('/individual', (req, res) => {
     WHERE "recurring" = $1 AND "user_id" = $2 AND "category_id" = "category".id;
     `
 
-
     let queryValues = [
         false,
         id
     ]
 
-
     pool.query(queryText, queryValues)
         .then(response => {
-            console.log(response.rows);
             res.send(response.rows)
         })
         .catch(err => {
@@ -189,9 +171,7 @@ router.get('/individual', (req, res) => {
 
 })
 
-router.get('/recurring', (req, res) => {
-    console.log('in recurring expense');
-    console.log(req.user);
+router.get('/recurring', (req, res) => {//This route retrieves all recurring expenses from the DB
     let id = req.user.id
 
     let queryText = `
@@ -207,7 +187,6 @@ router.get('/recurring', (req, res) => {
 
     pool.query(queryText, queryValues)
         .then(response => {
-            console.log(response.rows);
             res.send(response.rows)
         })
         .catch(err => {
@@ -216,7 +195,7 @@ router.get('/recurring', (req, res) => {
         })
 })
 
-router.get('/getAllExpenses', (req, res) => {
+router.get('/getAllExpenses', (req, res) => {//This route gets all expenses for a user. Used for recent expenses on the user page
     let userId = req.user.id
 
     let queryText = `

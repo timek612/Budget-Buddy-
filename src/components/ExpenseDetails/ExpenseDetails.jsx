@@ -1,3 +1,4 @@
+//The page that is shown when you click on an expense to enlarge it
 import { useHistory, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -9,13 +10,6 @@ function ExpenseDetails () {
     const history = useHistory()
     const dispatch = useDispatch()
     const expense = useSelector((store) => store.expenseReducer.currentExpense)
-    console.log(expense);
-    
-    // useEffect(() => {
-    //     dispatch({
-          
-    //     })
-    //   }, [])
     
     const editExpense = () => {
         history.push(`/editExpense/${expense.id}`)
@@ -24,7 +18,6 @@ function ExpenseDetails () {
 
     const deleteExpense = () => {
 
-        console.log(expense.id);
         dispatch ({
             type: 'DELETE_EXPENSE',
             payload: expense.id
@@ -44,7 +37,7 @@ function ExpenseDetails () {
         history.push('/individualExpenses')
     }
 
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false)//snackbar setup
     const handleClose = (event, reason) => {
         if(reason === 'clickaway') {
             return

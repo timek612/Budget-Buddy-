@@ -1,3 +1,4 @@
+//Just the thank you page once you're done registering!
 import './ThankYou.css'
 import {  useHistory  }  from 'react-router-dom'
 import { useDispatch } from 'react-redux';

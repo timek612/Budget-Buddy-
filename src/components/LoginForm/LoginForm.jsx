@@ -9,7 +9,7 @@ function LoginForm() {
   const errors = useSelector(store => store.errors);
   const dispatch = useDispatch();
   const history = useHistory()
-
+//This page will log user in
 
   const login = (event) => {
     event.preventDefault();

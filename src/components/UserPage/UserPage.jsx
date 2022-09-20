@@ -1,22 +1,18 @@
+//Home page for the user. 
+//This page displays users allowances and recent expenses
 import React from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import './UserPage.css'
-import BarChart from '../Chart/Chart';
-const Money = require('js-money');
 
 function UserPage() {
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
 
   const [displayedAllowance, setDisplayedAllowance] = useState(1)
-
   const user = useSelector((store) => store.user);
   const allowances = useSelector((store) => store.moneyReducer.calculationReducer);
   const allExpenses = useSelector((store) => store.expenseReducer.allExpenses)
   console.log(allExpenses);
   const dispatch = useDispatch()
-  // console.log(allowances);
 
 
   useEffect(() => {
@@ -31,17 +27,6 @@ function UserPage() {
       })
   }, [])
 
-  const changeAllowanceRange = () => {
-
-    console.log('clicked');
-
-    if (displayedAllowance < 3) {
-      setDisplayedAllowance(displayedAllowance + 1)
-    }
-    else {
-      setDisplayedAllowance(1)
-    }
-  }
 
   return (
     <div className="container">
@@ -92,5 +77,4 @@ function UserPage() {
   )
 }
 
-// this allows us to use <App /> in index.js
 export default UserPage;

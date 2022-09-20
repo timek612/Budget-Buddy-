@@ -1,3 +1,4 @@
+//Page where you select to edit income or personal information. 
 import './EditProfile.css'
 import { useHistory } from 'react-router-dom'
 import { useEffect } from 'react'
@@ -5,8 +6,6 @@ import { useDispatch } from 'react-redux'
 function EditProfile () {
     
     const dispatch = useDispatch()
-    
-    
     const history = useHistory()
 
     const personalClicked = () => {
@@ -16,7 +15,8 @@ function EditProfile () {
 
         history.push('/personalInfoEdit')
     }
-
+    //couldn't get this info to always show up in the inputs on the next pages
+    //so these dispatches aren't really being used
     const incomeClicked = () => {
         dispatch({
             type: 'FETCH_USER_PARAMETERS'

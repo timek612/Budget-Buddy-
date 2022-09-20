@@ -1,14 +1,10 @@
-
-
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-let moneyId = 0;
 
 
 
-router.get('/allowance', (req, res) => {//get request gets income and savings and does math for it
-  console.log(req.user);
+router.get('/allowance', (req, res) => {//get request gets income and savings and does math for it on page load. 
   let userId = req.user.id
   let queryText = `
   SELECT "savings_adjusted_income", "sum_of_expenses" FROM "money"
@@ -18,14 +14,13 @@ router.get('/allowance', (req, res) => {//get request gets income and savings an
   pool.query(queryText, [userId])
     .then(response => {
       console.log(response.rows[0]);
-
+      //math is all done here
       let netIncome = response.rows[0].savings_adjusted_income
       let expensesSum = response.rows[0].sum_of_expenses
 
       let dailyAllowance = Math.round((netIncome / 365) - expensesSum)
       let weeklyAllowance = Math.round((netIncome / 52) - expensesSum)
       let monthlyAllowance = Math.round((netIncome / 12) - expensesSum)
-      console.log(dailyAllowance, weeklyAllowance, monthlyAllowance);
 
       let maths = {
         netIncome: netIncome,
@@ -33,7 +28,7 @@ router.get('/allowance', (req, res) => {//get request gets income and savings an
         weeklyAllowance: weeklyAllowance,
         monthlyAllowance: monthlyAllowance
       }
-
+      //then deposited back to DB
       let secondQueryText = `
     UPDATE "money"
     SET "total_daily_available" = $1, "total_weekly_available" = $2, "total_monthly_available" = $3
@@ -59,14 +54,13 @@ router.get('/allowance', (req, res) => {//get request gets income and savings an
 });
 
 
-router.post('/recurring', (req, res) => {// not being used anymore I believe
-  console.log(req.body);
+router.post('/recurring', (req, res) => {// not being used anymore I believe. Going to keep it just in case. 
 
   const description = req.body.description
   const category = Number(req.body.category)
   const date = req.body.date
   const total = Number(req.body.total)
-  const userId = req.user.id// this is the row in the user table of whos logged in 
+  const userId = req.user.id// this is the row in the user table of who's logged in 
 
   const queryText = `
   INSERT INTO "expenses" (description, date, cost, recurring, category_id, user_id)
@@ -84,7 +78,6 @@ router.post('/recurring', (req, res) => {// not being used anymore I believe
 
   pool.query(queryText, queryValues)
     .then((response) => {
-      console.log(response);
       res.sendStatus(201)
     })
     .catch((err) => {
@@ -94,7 +87,8 @@ router.post('/recurring', (req, res) => {// not being used anymore I believe
 })
 
 
-router.put('/:id', (req, res) => {
+router.put('/:id', (req, res) => {//This route edits the money for the user before the expense is actually deleted from DB.
+  //We grab the expense from the DB before its deleted, change the total money values for the user then re-deposit it.
   console.log('EDITING TOTALS BEFORE DELETE ROUTE');
   let expenseId = req.params.id
   // console.log(expenseId);
@@ -105,26 +99,19 @@ router.put('/:id', (req, res) => {
   `;
   pool.query(queryText, [expenseId])
     .then(response => {
-      // console.log(response.rows);
 
       if (response.rows[0].recurring === false) {// then this expense is a one-time expense
-        // console.log('RECURRING IS FALSE');
-        // console.log(req.user.id);
         let secondQueryText = `
       SELECT "sum_of_expenses" FROM "money"
       WHERE "user_id" = $1;
       `;
 
         let thisExpenseTotal = response.rows[0].cost
-        // console.log(thisExpenseTotal);
 
         pool.query(secondQueryText, [req.user.id])
           .then(response => {
             let expensesSum = response.rows[0].sum_of_expenses
-            // console.log(expensesSum);
             expensesSum -= thisExpenseTotal
-            // console.log('DONE, NOW DEPOSITING');
-            // console.log(expensesSum);
             let newExpensesSum = expensesSum
 
             let thirdQueryText = `
@@ -135,7 +122,6 @@ router.put('/:id', (req, res) => {
 
             pool.query(thirdQueryText, [newExpensesSum, req.user.id])
             .then(response => {
-              // console.log(response);
               res.sendStatus(200)
             })
           })
@@ -179,9 +165,10 @@ router.put('/:id', (req, res) => {
 })
 
 router.put('/editExpense/:id', (req, res) => {
+  //This whole route is for editing user money values before the expense is edited on DOM. 
+  //It determines what kind of expense it is, and then math is done accordingly.
   console.log('IN EDIT EXPENSE MONEY TOTALS');
   if (req.body.recurring === false) {
-    console.log('FALSE');
   let newTotal = Number(req.body.total)// updated total cost of expense
   let expenseId = req.body.id
 
@@ -261,8 +248,7 @@ router.put('/editExpense/:id', (req, res) => {
     res.sendStatus(500)
   })
 }// end first if statement
-else {
-  console.log('TRUE');
+else {//This is for if the edited expense is recurring
   let newTotal = Number(req.body.total)// updated total cost of expense
   let expenseId = req.body.id
 
@@ -275,9 +261,7 @@ else {
   .then (response => {
     let currentTotal = response.rows[0].cost
     if (newTotal > currentTotal) {// more expensive for the user
-      console.log(newTotal, currentTotal);
       let difference = (newTotal - currentTotal) * 12 // calculates the yearly difference
-      console.log(difference);
 
       let secondQueryText = `
       SELECT "savings_adjusted_income" FROM "money"
@@ -288,7 +272,6 @@ else {
       .then(response => {
         let netIncome = response.rows[0].savings_adjusted_income
         netIncome -= difference
-        console.log(netIncome);
 
         let thirdQueryText = `
         UPDATE "money"
@@ -310,9 +293,7 @@ else {
       })
     }//end third if statement
     else {
-      console.log(currentTotal, newTotal);
       let difference = (currentTotal - newTotal) * 12
-      console.log(difference);
 
       let secondQueryText = `
       SELECT "savings_adjusted_income" FROM "money"
@@ -323,7 +304,6 @@ else {
       .then (response => {
         let netIncome = response.rows[0].savings_adjusted_income
         netIncome += difference
-        console.log(netIncome);
 
         let thirdQueryText = `
         UPDATE "money"
@@ -352,9 +332,8 @@ else {
 })
 
 
-router.get('/', (req, res) => {
+router.get('/', (req, res) => {// Don't believe this is being used anymore, but going to keep it in case. 
   let userId = req.user.id
-  // console.log('IN MONEY PARAMETERS');
   let queryText = `
   SELECT "income", "savings_amount" FROM "money"
   WHERE "user_id" = $1;
@@ -371,7 +350,7 @@ router.get('/', (req, res) => {
 
 })
 
-router.get('/chartData', (req, res) => {
+router.get('/chartData', (req, res) => {// this route is to select the sum of all expenses for a user to display on the pie chart.
   let userId = req.user.id
 
   let queryText = `
@@ -382,7 +361,6 @@ router.get('/chartData', (req, res) => {
 
   pool.query(queryText, [userId])
   .then(response => {
-    console.log(response.rows);
     res.send(response.rows)
   })
   .catch(err => {

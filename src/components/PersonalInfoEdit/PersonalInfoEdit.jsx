@@ -1,12 +1,11 @@
+//This is the page where a user can edit their personal information when logged in
+
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
 function PersonalInfoEdit() {
     const dispatch = useDispatch()
-    const history = useHistory()
 
     const userInfo = useSelector((store) => store.moneyReducer.personalInfoReducer)
-    // console.log(userInfo);
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -25,9 +24,6 @@ function PersonalInfoEdit() {
 
     return (
         <div>
-
-                
-
                 <div key={userInfo.firstname}>
                 <h1 className="recurringHeader">Edit Profile Info</h1>
                 <p>{userInfo.firstName}</p>
