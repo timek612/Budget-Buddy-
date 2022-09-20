@@ -11,7 +11,6 @@ function UserPage() {
   const user = useSelector((store) => store.user);
   const allowances = useSelector((store) => store.moneyReducer.calculationReducer);
   const allExpenses = useSelector((store) => store.expenseReducer.allExpenses)
-  console.log(allExpenses);
   const dispatch = useDispatch()
 
 
